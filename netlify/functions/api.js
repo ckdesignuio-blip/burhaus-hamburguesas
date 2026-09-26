@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
   const method = event.httpMethod
   const qs = event.queryStringParameters || {}
   try {
-    const store = getStore('burhaus')
+    const store = getStore({ name: 'burhaus', context })
 
     // ── GET ───────────────────────────────────────────────────
     if (method === 'GET') {

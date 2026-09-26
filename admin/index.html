@@ -152,6 +152,11 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .photo-upload:hover{background:var(--Y);color:#000}
 input[type=file]{display:none}
 
+/* Ocultar badge Netlify Identity y banner Netlify */
+[data-netlify-identity-button],.netlify-identity-button,
+[data-netlify-banner],[data-netlify-badge],[class*="netlify-badge"],#nl-badge-frame
+{display:none!important;visibility:hidden!important}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   aside{width:64px;padding:12px 0}
