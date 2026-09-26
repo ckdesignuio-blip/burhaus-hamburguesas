@@ -5,9 +5,9 @@ const MENU  = 'data/menu.json'
 const hdrs = { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
 
 async function ghGet(path) {
-  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
-    headers: { Authorization: `token ${process.env.GITHUB_TOKEN}`, 'User-Agent': 'burhaus-admin' }
-  })
+  const headers = { 'User-Agent': 'burhaus-admin' }
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `token ${process.env.GITHUB_TOKEN}`
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, { headers })
   if (!r.ok) throw new Error(`GitHub GET ${r.status}`)
   return r.json()
 }
