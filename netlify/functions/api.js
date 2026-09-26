@@ -1,3 +1,4 @@
+// v4
 const OWNER = 'ckdesignuio-blip'
 const REPO  = 'burhaus-hamburguesas'
 const MENU  = 'data/menu.json'
