@@ -1,0 +1,25 @@
+# Secrets — never commit these
+.env
+.env.local
+.env.*.local
+*.secret
+
+# Admin local config (never sync passwords)
+admin/.adminrc
+admin/local-config.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Node (if used for build tools)
+node_modules/
+npm-debug.log*
+
+# Netlify
+.netlify/

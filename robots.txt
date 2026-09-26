@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /data/
+
+Sitemap: https://burhaus.netlify.app/sitemap.xml
+
+# Burhaus Hamburguesas - Quito, Ecuador
+# https://burhaus.netlify.app

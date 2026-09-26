@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Página no encontrada | Burhaus Hamburguesas</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#09090C;--Y:#F59E0B;--t:#F0F0F0;--t2:#888}
+body{background:var(--bg);color:var(--t);font-family:'Inter',sans-serif;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:hidden}
+.bg-text{position:fixed;font-family:'Anton',sans-serif;font-size:40vw;color:rgba(245,158,11,.03);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;user-select:none}
+.content{position:relative;z-index:1;max-width:500px}
+.burger-404{font-size:5rem;animation:float 2.5s ease-in-out infinite;display:block;margin-bottom:8px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(5deg)}}
+.code{font-family:'Anton',sans-serif;font-size:clamp(5rem,18vw,9rem);color:var(--Y);line-height:1;text-shadow:0 0 40px rgba(245,158,11,.3)}
+h1{font-family:'Anton',sans-serif;font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:.06em;margin:12px 0 8px}
+p{color:var(--t2);font-size:.95rem;line-height:1.7;margin-bottom:28px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+a.btn{padding:12px 26px;border-radius:50px;font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:.05em;text-decoration:none;transition:all .25s}
+.btn-y{background:var(--Y);color:#000;box-shadow:0 0 20px rgba(245,158,11,.3)}
+.btn-y:hover{background:#FFB800;transform:translateY(-2px)}
+.btn-g{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
+.btn-g:hover{background:#22C55E;color:#fff}
+</style>
+</head>
+<body>
+<div class="bg-text">404</div>
+<div class="content">
+  <span class="burger-404">🍔</span>
+  <div class="code">404</div>
+  <h1>ESTA PÁGINA SE LA COMIÓ ALGUIEN</h1>
+  <p>La página que buscas no existe o fue movida.<br>Pero tranquilo, tenemos hamburguesas increíbles esperándote.</p>
+  <div class="btns">
+    <a class="btn btn-y" href="/">🍔 Ver el Menú</a>
+    <a class="btn btn-g" href="https://wa.me/593994305872" target="_blank">💬 Contactarnos</a>
+  </div>
+</div>
+</body>
+</html>

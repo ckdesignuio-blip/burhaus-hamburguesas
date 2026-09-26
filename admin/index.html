@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Burhaus Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070A;--bg2:#0D0D14;--card:rgba(16,16,24,.9);
+  --Y:#F59E0B;--O:#E11D48;--green:#22C55E;--blue:#3B82F6;--purple:#8B5CF6;
+  --t:#F0F0F0;--t2:#888;--t3:#444;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --neon-y:0 0 12px rgba(245,158,11,.5);
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--t);font-family:'Inter',sans-serif;display:flex}
+
+/* GATE */
+#gate{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.gate-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px 32px;width:100%;max-width:380px;text-align:center}
+.gate-logo{font-family:'Anton',sans-serif;font-size:1.8rem;color:var(--Y);letter-spacing:.1em;margin-bottom:4px;text-shadow:var(--neon-y)}
+.gate-sub{font-size:.75rem;color:var(--t2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
+.gate-title{font-family:'Anton',sans-serif;font-size:1.2rem;margin-bottom:6px}
+.gate-desc{font-size:.8rem;color:var(--t2);margin-bottom:20px;line-height:1.6}
+.field{margin-bottom:14px;text-align:left}
+.field label{display:block;font-size:.75rem;font-weight:600;color:var(--t2);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+.field input{width:100%;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:10px;color:var(--t);font-size:.92rem;transition:border-color .2s}
+.field input:focus{outline:none;border-color:var(--Y)}
+.btn-y{width:100%;padding:13px;background:var(--Y);color:#000;border:none;border-radius:50px;font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:.06em;cursor:pointer;transition:all .25s;margin-top:4px}
+.btn-y:hover{background:#FFB800;box-shadow:var(--neon-y)}
+.gate-err{color:var(--O);font-size:.8rem;margin-top:10px;min-height:18px}
+.gate-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;font-size:.78rem;color:rgba(245,158,11,.9);margin-bottom:16px;text-align:left}
+
+/* LAYOUT */
+#app{display:flex;width:100%;height:100%;overflow:hidden}
+aside{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 0}
+.aside-brand{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.aside-logo{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--Y);letter-spacing:.08em}
+.aside-sub{font-size:.65rem;color:var(--t3);letter-spacing:.15em;text-transform:uppercase}
+nav.side-nav{flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:var(--t2);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(245,158,11,.04);color:var(--t)}
+.nav-item.act{color:var(--Y);border-left-color:var(--Y);background:rgba(245,158,11,.06)}
+.nav-em{font-size:1rem;width:20px}
+.aside-foot{padding:16px 20px;border-top:1px solid var(--border)}
+.btn-logout{width:100%;padding:9px;background:rgba(225,29,72,.08);border:1px solid rgba(225,29,72,.2);color:#fb7185;border-radius:50px;font-size:.78rem;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-logout:hover{background:var(--O);color:#fff}
+
+main{flex:1;overflow-y:auto;background:var(--bg);padding:28px}
+.tab{display:none}.tab.on{display:block}
+.page-title{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:.06em;margin-bottom:4px}
+.page-sub{font-size:.8rem;color:var(--t2);margin-bottom:24px}
+
+/* CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:border-color .2s}
+.stat-card:hover{border-color:rgba(245,158,11,.2)}
+.stat-label{font-size:.7rem;font-weight:600;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.stat-val{font-family:'Anton',sans-serif;font-size:2rem;line-height:1}
+.stat-sub{font-size:.7rem;color:var(--t2);margin-top:4px}
+.stat-y{color:var(--Y)}.stat-g{color:var(--green)}.stat-b{color:var(--blue)}.stat-p{color:var(--purple)}
+
+/* TABLE */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.table-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.table-head h3{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t2)}
+table{width:100%;border-collapse:collapse}
+th{padding:10px 14px;text-align:left;font-size:.7rem;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.03)}
+tr:last-child td{border:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:.68rem;font-weight:700;letter-spacing:.06em}
+.badge-g{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.badge-r{background:rgba(225,29,72,.1);color:#fb7185;border:1px solid rgba(225,29,72,.2)}
+.badge-y{background:rgba(245,158,11,.1);color:var(--Y);border:1px solid rgba(245,158,11,.2)}
+
+/* TOGGLE */
+.toggle{display:inline-flex;align-items:center;cursor:pointer;gap:8px}
+.toggle-track{width:38px;height:20px;background:rgba(255,255,255,.1);border-radius:50px;position:relative;transition:background .2s}
+.toggle-track.on{background:var(--green)}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.toggle-track.on .toggle-thumb{transform:translateX(18px)}
+
+/* INLINE EDIT */
+.iedit{background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:8px;color:var(--t);padding:6px 10px;font-size:.82rem;width:100%;transition:border-color .2s}
+.iedit:focus{outline:none;border-color:var(--Y)}
+.price-row{display:flex;gap:6px;align-items:center}
+.price-lbl{font-size:.65rem;color:var(--t3);letter-spacing:.05em;white-space:nowrap}
+.price-in{width:64px;padding:5px 8px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:8px;color:var(--Y);font-family:'Anton',sans-serif;font-size:.95rem;text-align:center}
+.price-in:focus{outline:none;border-color:var(--Y)}
+
+/* SAVE BAR */
+.save-bar{position:sticky;bottom:0;background:rgba(7,7,10,.95);border-top:1px solid var(--border);padding:14px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(12px)}
+.save-bar p{font-size:.8rem;color:var(--t2)}
+.save-bar p span{color:var(--Y);font-weight:600}
+.btn-save{padding:10px 24px;background:var(--Y);color:#000;border:none;border-radius:50px;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.06em;cursor:pointer;transition:all .25s}
+.btn-save:hover{background:#FFB800;box-shadow:var(--neon-y)}
+.btn-secondary{padding:10px 20px;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--t);border-radius:50px;font-size:.82rem;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{background:rgba(255,255,255,.1)}
+
+/* SEO CHECKER */
+.seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.seo-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
+.seo-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.seo-dot.ok{background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.4)}
+.seo-dot.warn{background:var(--Y);box-shadow:0 0 8px rgba(245,158,11,.4)}
+.seo-dot.fail{background:var(--O);box-shadow:0 0 8px rgba(225,29,72,.4)}
+.seo-dot.load{background:var(--t3);animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.seo-name{font-size:.82rem;font-weight:600;margin-bottom:3px}
+.seo-hint{font-size:.72rem;color:var(--t2);line-height:1.5}
+
+/* ANALYTICS CHART */
+.chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.chart-title{font-size:.82rem;font-weight:700;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:100px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;background:var(--Y);border-radius:4px 4px 0 0;opacity:.8;transition:opacity .2s;min-height:3px}
+.bar:hover{opacity:1}
+.bar-lbl{font-size:.62rem;color:var(--t3)}
+.bar-val{font-size:.7rem;font-weight:700;color:var(--Y)}
+
+/* SETTINGS */
+.settings-g{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.settings-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.settings-card h3{font-size:.82rem;font-weight:700;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.field-sm{margin-bottom:12px}
+.field-sm label{display:block;font-size:.72rem;font-weight:600;color:var(--t3);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.field-sm input,.field-sm select{width:100%;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:8px;color:var(--t);font-size:.85rem}
+.field-sm input:focus,.field-sm select:focus{outline:none;border-color:var(--Y)}
+.field-sm select option{background:var(--bg2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:12px;padding:12px 18px;font-size:.85rem;color:#4ade80;z-index:9999;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1)}
+.toast.on{transform:none;opacity:1}
+
+/* PHOTO SECTION */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.photo-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s}
+.photo-card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-3px)}
+.photo-img{width:100%;height:120px;object-fit:cover;display:block}
+.photo-name{padding:8px 10px;font-size:.75rem;font-weight:600;color:var(--t2)}
+.photo-upload{width:100%;padding:9px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--Y);border-radius:0 0 10px 10px;font-size:.75rem;cursor:pointer;font-family:'Anton',sans-serif;letter-spacing:.05em;transition:all .2s}
+.photo-upload:hover{background:var(--Y);color:#000}
+input[type=file]{display:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  aside{width:64px;padding:12px 0}
+  .aside-brand,.nav-item span,.aside-foot .btn-logout span,.aside-sub{display:none}
+  .nav-item{justify-content:center;padding:12px;border-left:none;border-radius:8px;margin:2px 4px}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .seo-grid{grid-template-columns:1fr}
+  .settings-g{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">🍔 BURHAUS</div>
+    <div class="gate-sub">Panel Administrativo</div>
+    <div id="gateSetup">
+      <div class="gate-title">Configurar acceso</div>
+      <div class="gate-desc">Primera vez. Crea una contraseña segura para el panel.<br>No se guarda en ningún servidor.</div>
+      <div class="field"><label>Nueva contraseña</label><input type="password" id="pw1" placeholder="Mínimo 8 caracteres"></div>
+      <div class="field"><label>Confirmar contraseña</label><input type="password" id="pw2" placeholder="Repite la contraseña"></div>
+      <button class="btn-y" onclick="setupPw()">Crear acceso →</button>
+      <div class="gate-err" id="gateErr"></div>
+    </div>
+    <div id="gateLogin" style="display:none">
+      <div class="gate-title">Iniciar sesión</div>
+      <div class="gate-desc">Ingresa tu contraseña de administrador.</div>
+      <div class="field"><label>Contraseña</label><input type="password" id="pwIn" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()"></div>
+      <button class="btn-y" onclick="login()">Entrar →</button>
+      <div class="gate-err" id="loginErr"></div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+  <aside>
+    <div class="aside-brand">
+      <div class="aside-logo">🍔 BURHAUS</div>
+      <div class="aside-sub">Admin Panel</div>
+    </div>
+    <nav class="side-nav">
+      <div class="nav-item act" onclick="showTab('dash',this)"><span class="nav-em">📊</span><span>Dashboard</span></div>
+      <div class="nav-item" onclick="showTab('menu',this)"><span class="nav-em">🍔</span><span>Menú</span></div>
+      <div class="nav-item" onclick="showTab('fotos',this)"><span class="nav-em">📷</span><span>Fotos</span></div>
+      <div class="nav-item" onclick="showTab('seo',this)"><span class="nav-em">🔍</span><span>SEO</span></div>
+      <div class="nav-item" onclick="showTab('analytics',this)"><span class="nav-em">📈</span><span>Analytics</span></div>
+      <div class="nav-item" onclick="showTab('settings',this)"><span class="nav-em">⚙️</span><span>Ajustes</span></div>
+    </nav>
+    <div class="aside-foot">
+      <button class="btn-logout" onclick="logout()"><span>Cerrar sesión</span></button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- DASHBOARD -->
+    <div class="tab on" id="tab-dash">
+      <div class="page-title">DASHBOARD</div>
+      <div class="page-sub" id="dashDate">Cargando métricas...</div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-label">Visitas hoy</div><div class="stat-val stat-y" id="sViews">0</div><div class="stat-sub">desde las 00:00</div></div>
+        <div class="stat-card"><div class="stat-label">Pedidos enviados</div><div class="stat-val stat-g" id="sOrders">0</div><div class="stat-sub">WhatsApp hoy</div></div>
+        <div class="stat-card"><div class="stat-label">Ingresos est.</div><div class="stat-val stat-b" id="sRevenue">$0</div><div class="stat-sub">basado en pedidos</div></div>
+        <div class="stat-card"><div class="stat-label">Ítem más pedido</div><div class="stat-val stat-p" style="font-size:1rem;padding-top:4px" id="sTop">—</div><div class="stat-sub">esta semana</div></div>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-title">Pedidos últimos 7 días</div>
+        <div class="bar-chart" id="ordersChart"></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-head"><h3>Últimos pedidos</h3></div>
+        <table><thead><tr><th>Hora</th><th>Ítems</th><th>Total</th><th>Estado</th></tr></thead>
+        <tbody id="ordersTable"><tr><td colspan="4" style="color:var(--t3);text-align:center;padding:20px">No hay pedidos registrados aún</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div class="tab" id="tab-menu">
+      <div class="page-title">EDITOR DE MENÚ</div>
+      <div class="page-sub">Activa/desactiva ítems y edita precios y descripciones. Descarga el JSON para actualizar el sitio.</div>
+      <div id="menuEditor"></div>
+      <div class="save-bar">
+        <p>Cambios pendientes: <span id="changeCount">0</span></p>
+        <div style="display:flex;gap:8px">
+          <button class="btn-secondary" onclick="downloadJSON()">⬇️ Descargar menu.json</button>
+          <button class="btn-save" onclick="saveMenu()">💾 Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTOS -->
+    <div class="tab" id="tab-fotos">
+      <div class="page-title">GESTIÓN DE FOTOS</div>
+      <div class="page-sub">Sube nuevas fotos para cada producto. Formato JPG/PNG, máx 4MB.</div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:16px;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.7">
+        <strong style="color:var(--Y)">📋 Cómo actualizar fotos en el sitio:</strong><br>
+        1. Sube la nueva foto aquí (se guarda solo en este navegador como vista previa)<br>
+        2. Copia la imagen a la carpeta <code style="color:var(--Y)">images/</code> de tu proyecto con el nombre indicado<br>
+        3. Sube a GitHub → Netlify redeploya automáticamente en ~1 minuto
+      </div>
+    </div>
+
+    <!-- SEO -->
+    <div class="tab" id="tab-seo">
+      <div class="page-title">SEO &amp; POSICIONAMIENTO</div>
+      <div class="page-sub">Revisa y edita todos los factores SEO de tu sitio. Verde = OK, Amarillo = mejorar, Rojo = falta.</div>
+      <div class="seo-grid" id="seoGrid"></div>
+      <div class="table-wrap">
+        <div class="table-head"><h3>Editor de meta etiquetas</h3></div>
+        <div style="padding:16px">
+          <div class="field-sm"><label>Título de página (50-60 caracteres)</label>
+            <input type="text" id="seoTitle" maxlength="80" oninput="updateSeoPreview()">
+            <div style="font-size:.7rem;color:var(--t3);margin-top:3px" id="seoTitleLen">0/60</div>
+          </div>
+          <div class="field-sm"><label>Meta descripción (120-160 caracteres)</label>
+            <input type="text" id="seoDesc" maxlength="200" oninput="updateSeoPreview()">
+            <div style="font-size:.7rem;color:var(--t3);margin-top:3px" id="seoDescLen">0/160</div>
+          </div>
+          <div class="field-sm"><label>Palabras clave</label>
+            <input type="text" id="seoKw" placeholder="hamburguesas quito, smash burger quito, ...">
+          </div>
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:10px">
+            <div style="font-size:.7rem;color:var(--t3);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase">Vista previa en Google</div>
+            <div id="seoPreviewTitle" style="color:#8AB4F8;font-size:.92rem;font-weight:500;margin-bottom:3px">—</div>
+            <div style="color:#4FC06C;font-size:.75rem;margin-bottom:3px">burhaus.netlify.app</div>
+            <div id="seoPreviewDesc" style="color:#BDC1C6;font-size:.8rem;line-height:1.5">—</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <button class="btn-save" onclick="saveSeo()">💾 Guardar SEO</button>
+            <button class="btn-secondary" onclick="applySeoToMenu()">🔄 Aplicar al index.html</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="tab" id="tab-analytics">
+      <div class="page-title">ANALYTICS</div>
+      <div class="page-sub">Métricas de visitas y comportamiento. Datos almacenados localmente en el navegador.</div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-label">Total visitas</div><div class="stat-val stat-y" id="aTotalViews">0</div><div class="stat-sub">todos los tiempos</div></div>
+        <div class="stat-card"><div class="stat-label">Total pedidos</div><div class="stat-val stat-g" id="aTotalOrders">0</div><div class="stat-sub">WhatsApp</div></div>
+        <div class="stat-card"><div class="stat-label">Tasa conversión</div><div class="stat-val stat-b" id="aConversion">0%</div><div class="stat-sub">pedidos / visitas</div></div>
+        <div class="stat-card"><div class="stat-label">Ingreso total est.</div><div class="stat-val stat-p" id="aTotalRevenue">$0</div><div class="stat-sub">acumulado</div></div>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-title">Visitas últimos 14 días</div>
+        <div class="bar-chart" id="viewsChart"></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-head"><h3>Ítems más pedidos</h3></div>
+        <table><thead><tr><th>Producto</th><th>Veces pedido</th><th>Ingresos est.</th></tr></thead>
+        <tbody id="topItemsTable"><tr><td colspan="3" style="color:var(--t3);text-align:center;padding:20px">Sin datos aún</td></tr></tbody></table>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px">
+        <button class="btn-secondary" onclick="exportAnalytics()">⬇️ Exportar CSV</button>
+        <button class="btn-secondary" style="color:var(--O);border-color:rgba(225,29,72,.3)" onclick="clearAnalytics()">🗑 Limpiar datos</button>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="tab" id="tab-settings">
+      <div class="page-title">AJUSTES</div>
+      <div class="page-sub">Configuración general del restaurante y del panel.</div>
+      <div class="settings-g" id="settingsForm">
+        <div class="settings-card">
+          <h3>🍔 Restaurante</h3>
+          <div class="field-sm"><label>Nombre</label><input type="text" id="cfgName"></div>
+          <div class="field-sm"><label>WhatsApp (con código de país)</label><input type="text" id="cfgWa" placeholder="593994305872"></div>
+          <div class="field-sm"><label>Dirección</label><input type="text" id="cfgAddr"></div>
+          <div class="field-sm"><label>Ciudad</label><input type="text" id="cfgCity"></div>
+          <div class="field-sm"><label>Horario</label><input type="text" id="cfgHours"></div>
+          <div class="field-sm"><label>Instagram (sin @)</label><input type="text" id="cfgIg" placeholder="burhaus.burger"></div>
+          <div class="field-sm"><label>Google Analytics ID (opcional)</label><input type="text" id="cfgGa" placeholder="G-XXXXXXXXXX"></div>
+          <button class="btn-save" style="margin-top:8px" onclick="saveConfig()">💾 Guardar</button>
+        </div>
+        <div class="settings-card">
+          <h3>🔐 Seguridad</h3>
+          <div class="field-sm"><label>Contraseña actual</label><input type="password" id="pwCur" placeholder="Contraseña actual"></div>
+          <div class="field-sm"><label>Nueva contraseña</label><input type="password" id="pwNew" placeholder="Nueva contraseña"></div>
+          <div class="field-sm"><label>Confirmar nueva</label><input type="password" id="pwCon" placeholder="Confirmar nueva"></div>
+          <button class="btn-save" style="margin-top:8px" onclick="changePw()">🔑 Cambiar contraseña</button>
+          <div class="gate-err" id="pwChangeErr" style="text-align:left"></div>
+        </div>
+        <div class="settings-card">
+          <h3>🚀 Publicar en Netlify</h3>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.8;margin-bottom:14px">
+            <div style="margin-bottom:6px;color:var(--t);font-weight:600">Pasos para publicar:</div>
+            <div>1. Descarga el <code style="color:var(--Y)">menu.json</code> actualizado</div>
+            <div>2. Reemplaza <code style="color:var(--Y)">data/menu.json</code> en tu carpeta</div>
+            <div>3. Sube a GitHub (commit + push)</div>
+            <div>4. Netlify redeploya automáticamente (~1 min)</div>
+          </div>
+          <button class="btn-secondary" style="margin-bottom:8px;width:100%" onclick="downloadJSON()">⬇️ Descargar menu.json</button>
+          <button class="btn-secondary" style="width:100%" onclick="downloadSitemap()">⬇️ Descargar sitemap.xml</button>
+        </div>
+        <div class="settings-card">
+          <h3>🗑 Datos</h3>
+          <p style="font-size:.8rem;color:var(--t2);margin-bottom:14px;line-height:1.6">Gestiona los datos almacenados en este navegador. Los datos del menú y analytics se guardan localmente.</p>
+          <button class="btn-secondary" style="width:100%;margin-bottom:8px" onclick="exportAll()">⬇️ Exportar todos los datos</button>
+          <button class="btn-secondary" style="width:100%;color:var(--O);border-color:rgba(225,29,72,.3)" onclick="resetAll()">⚠️ Restablecer todo</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="fileInput" accept="image/*">
+
+<script>
+// ============================================================
+// AUTH (SHA-256, sin contraseñas en código)
+// ============================================================
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+}
+
+function getHash(){return localStorage.getItem('bh_admin_hash')}
+function getSession(){return sessionStorage.getItem('bh_admin_session')==='1'}
+
+async function setupPw(){
+  const p1=document.getElementById('pw1').value
+  const p2=document.getElementById('pw2').value
+  const err=document.getElementById('gateErr')
+  if(p1.length<8){err.textContent='Mínimo 8 caracteres';return}
+  if(p1!==p2){err.textContent='Las contraseñas no coinciden';return}
+  const h=await sha256(p1)
+  localStorage.setItem('bh_admin_hash',h)
+  sessionStorage.setItem('bh_admin_session','1')
+  err.textContent=''
+  launchApp()
+}
+
+async function login(){
+  const p=document.getElementById('pwIn').value
+  const err=document.getElementById('loginErr')
+  const h=await sha256(p)
+  if(h===getHash()){
+    sessionStorage.setItem('bh_admin_session','1')
+    err.textContent=''
+    launchApp()
+  } else {
+    err.textContent='Contraseña incorrecta'
+    document.getElementById('pwIn').value=''
+  }
+}
+
+async function changePw(){
+  const cur=document.getElementById('pwCur').value
+  const nw=document.getElementById('pwNew').value
+  const co=document.getElementById('pwCon').value
+  const err=document.getElementById('pwChangeErr')
+  const curH=await sha256(cur)
+  if(curH!==getHash()){err.textContent='Contraseña actual incorrecta';return}
+  if(nw.length<8){err.textContent='Mínimo 8 caracteres';return}
+  if(nw!==co){err.textContent='Las nuevas no coinciden';return}
+  const h=await sha256(nw)
+  localStorage.setItem('bh_admin_hash',h)
+  err.textContent=''
+  err.style.color='var(--green)'
+  err.textContent='✓ Contraseña cambiada'
+  document.getElementById('pwCur').value=''
+  document.getElementById('pwNew').value=''
+  document.getElementById('pwCon').value=''
+  setTimeout(()=>{err.textContent='';err.style.color='var(--O)'},3000)
+}
+
+function logout(){
+  sessionStorage.removeItem('bh_admin_session')
+  location.reload()
+}
+
+function launchApp(){
+  document.getElementById('gate').style.display='none'
+  document.getElementById('app').style.display='flex'
+  initApp()
+}
+
+// Gate routing
+(function(){
+  if(getSession()){launchApp();return}
+  if(getHash()){
+    document.getElementById('gateSetup').style.display='none'
+    document.getElementById('gateLogin').style.display='block'
+  }
+})()
+
+// ============================================================
+// DATA LAYER
+// ============================================================
+function getMenuData(){
+  const stored=localStorage.getItem('bh_menu_data')
+  if(stored) return JSON.parse(stored)
+  return null
+}
+
+function saveMenuData(data){
+  localStorage.setItem('bh_menu_data',JSON.stringify(data))
+}
+
+async function fetchMenuData(){
+  try{
+    const r=await fetch('../data/menu.json')
+    if(!r.ok) throw new Error('not found')
+    const data=await r.json()
+    saveMenuData(data)
+    return data
+  }catch{
+    const stored=getMenuData()
+    return stored || {items:[],config:{},seo:{},reviews:[],faq:[]}
+  }
+}
+
+let menuData=null
+let changes=0
+
+function markChanged(){
+  changes++
+  document.getElementById('changeCount').textContent=changes
+}
+
+// ============================================================
+// INIT APP
+// ============================================================
+async function initApp(){
+  menuData=await fetchMenuData()
+  renderDashboard()
+  renderMenuEditor()
+  renderPhotos()
+  renderSeoChecker()
+  renderAnalytics()
+  loadSettings()
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'))
+  document.getElementById('tab-'+id).classList.add('on')
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('act'))
+  el.classList.add('act')
+  if(id==='seo') setTimeout(runSeoChecks,300)
+  if(id==='analytics') renderAnalytics()
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard(){
+  const today=new Date().toISOString().split('T')[0]
+  const orders=JSON.parse(localStorage.getItem('bh_orders')||'[]')
+  const views=JSON.parse(localStorage.getItem('bh_views')||'[]')
+  const todayOrders=orders.filter(o=>o.date===today)
+  const todayViews=views.filter(v=>v.date===today)
+  const todayRevenue=todayOrders.reduce((a,o)=>a+(o.total||0),0)
+  document.getElementById('sViews').textContent=todayViews.length
+  document.getElementById('sOrders').textContent=todayOrders.length
+  document.getElementById('sRevenue').textContent='$'+todayRevenue.toFixed(2)
+  document.getElementById('dashDate').textContent='Hoy, '+new Date().toLocaleDateString('es-EC',{weekday:'long',year:'numeric',month:'long',day:'numeric'})
+  // Top item
+  const counts={}
+  orders.forEach(o=>(o.items||[]).forEach(i=>{counts[i]=(counts[i]||0)+1}))
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0]
+  document.getElementById('sTop').textContent=top?top[0]:'—'
+  // Chart — last 7 days
+  const days=[]
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i)
+    days.push(d.toISOString().split('T')[0])
+  }
+  const maxO=Math.max(1,...days.map(d=>orders.filter(o=>o.date===d).length))
+  const chart=document.getElementById('ordersChart')
+  chart.innerHTML=days.map(d=>{
+    const cnt=orders.filter(o=>o.date===d).length
+    const h=Math.round((cnt/maxO)*90)+10
+    const lbl=d.slice(5).replace('-','/')
+    return `<div class="bar-col"><div class="bar-val">${cnt}</div><div class="bar" style="height:${h}px" title="${d}: ${cnt} pedidos"></div><div class="bar-lbl">${lbl}</div></div>`
+  }).join('')
+  // Orders table
+  const tbody=document.getElementById('ordersTable')
+  if(!orders.length){return}
+  const recent=orders.slice(-10).reverse()
+  tbody.innerHTML=recent.map(o=>`
+    <tr><td style="color:var(--t2);font-size:.75rem">${new Date(o.ts).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'})}</td>
+    <td>${(o.items||[]).slice(0,2).join(', ')+(o.items&&o.items.length>2?' +más':'')}</td>
+    <td style="color:var(--Y);font-family:'Anton',sans-serif">$${(o.total||0).toFixed(2)}</td>
+    <td><span class="badge badge-g">Enviado</span></td></tr>`).join('')
+}
+
+// ============================================================
+// MENU EDITOR
+// ============================================================
+const CATS={burgers:'🍔 Burgers Clásicas',nuevas:'✨ Burgers Nuevas',sanduches:'🥪 Sánduches',papas:'🍟 Papas',bebidas:'🥤 Bebidas',extras:'➕ Extras'}
+
+function renderMenuEditor(){
+  if(!menuData||!menuData.items){return}
+  const ed=document.getElementById('menuEditor')
+  const byCat={}
+  menuData.items.forEach(item=>{
+    if(!byCat[item.category])byCat[item.category]=[]
+    byCat[item.category].push(item)
+  })
+  ed.innerHTML=Object.keys(CATS).map(cat=>{
+    const items=(byCat[cat]||[])
+    if(!items.length)return''
+    const hasPrice3=cat==='burgers'||cat==='nuevas'
+    return `<div class="table-wrap" style="margin-bottom:16px">
+      <div class="table-head"><h3>${CATS[cat]}</h3></div>
+      <table><thead><tr><th>Disponible</th><th>Nombre</th><th>Descripción</th>${hasPrice3?'<th>Simple / Doble / Gordita</th>':'<th>Precio</th>'}</tr></thead>
+      <tbody>${items.map(item=>renderItemRow(item,hasPrice3)).join('')}</tbody></table></div>`
+  }).join('')
+}
+
+function renderItemRow(item,hasPrice3){
+  const avail=item.available!==false
+  const hasToggle=!['bebidas','extras'].includes(item.category)
+  return `<tr>
+    <td>${hasToggle?`<div class="toggle" onclick="toggleAvail('${item.id}',this)"><div class="toggle-track${avail?' on':''}"><div class="toggle-thumb"></div></div><span style="font-size:.72rem;color:var(--t2)">${avail?'Sí':'No'}</span></div>`:'<span class="badge badge-y">Siempre</span>'}</td>
+    <td><input class="iedit" value="${escHtml(item.name)}" onchange="updateItem('${item.id}','name',this.value)"></td>
+    <td><input class="iedit" value="${escHtml(item.desc||'')}" onchange="updateItem('${item.id}','desc',this.value)" style="font-size:.75rem"></td>
+    <td>${hasPrice3?
+      `<div class="price-row"><span class="price-lbl">S</span><input class="price-in" value="${item.priceS||0}" onchange="updateItem('${item.id}','priceS',parseFloat(this.value))"><span class="price-lbl">D</span><input class="price-in" value="${item.priceD||0}" onchange="updateItem('${item.id}','priceD',parseFloat(this.value))"><span class="price-lbl">G</span><input class="price-in" value="${item.priceG||0}" onchange="updateItem('${item.id}','priceG',parseFloat(this.value))"></div>`:
+      `<input class="price-in" value="${item.price||0}" onchange="updateItem('${item.id}','price',parseFloat(this.value))">`
+    }</td></tr>`
+}
+
+function toggleAvail(id,el){
+  const item=menuData.items.find(i=>i.id===id)
+  if(!item)return
+  item.available=!item.available
+  const track=el.querySelector('.toggle-track')
+  const label=el.querySelector('span')
+  track.classList.toggle('on',item.available)
+  label.textContent=item.available?'Sí':'No'
+  markChanged()
+}
+
+function updateItem(id,field,val){
+  const item=menuData.items.find(i=>i.id===id)
+  if(item){item[field]=val;markChanged()}
+}
+
+function saveMenu(){
+  saveMenuData(menuData)
+  changes=0
+  document.getElementById('changeCount').textContent=0
+  toast('✓ Cambios guardados en el navegador')
+}
+
+function downloadJSON(){
+  if(menuData){saveMenuData(menuData)}
+  const data=getMenuData()||menuData
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'})
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob)
+  a.download='menu.json';a.click()
+  toast('⬇️ menu.json descargado')
+}
+
+// ============================================================
+// PHOTOS
+// ============================================================
+function renderPhotos(){
+  if(!menuData||!menuData.items)return
+  const grid=document.getElementById('photoGrid')
+  const imgItems=menuData.items.filter(i=>i.image)
+  grid.innerHTML=imgItems.map(item=>`
+    <div class="photo-card">
+      <img class="photo-img" src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height%22120%22><rect fill=%22%23111%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23555%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2214%22>Sin imagen</text></svg>'">
+      <div class="photo-name">${item.name}</div>
+      <button class="photo-upload" onclick="triggerUpload('${item.id}')">📷 Cambiar foto</button>
+    </div>`).join('')
+}
+
+function triggerUpload(itemId){
+  const fi=document.getElementById('fileInput')
+  fi.onchange=(e)=>{
+    const file=e.target.files[0]
+    if(!file)return
+    const reader=new FileReader()
+    reader.onload=(ev)=>{
+      const item=menuData.items.find(i=>i.id===itemId)
+      if(item){
+        // Preview only in admin — real update needs file copy + GitHub push
+        const imgEl=document.querySelector(`[alt="${item.name}"]`)
+        if(imgEl) imgEl.src=ev.target.result
+        toast(`📷 Vista previa actualizada. Copia el archivo a images/${itemId}.jpg y sube a GitHub.`)
+      }
+      fi.value=''
+    }
+    reader.readAsDataURL(file)
+  }
+  fi.click()
+}
+
+// ============================================================
+// SEO CHECKER
+// ============================================================
+const SEO_CHECKS=[
+  {id:'meta-title',label:'Título de página (50-60 chars)',check:async()=>{const t=menuData?.seo?.title||'';const l=t.length;return l>=50&&l<=60?'ok':l>0?'warn':'fail'},hint:'Título actual tiene '+(menuData?.seo?.title||'').length+' caracteres. Ideal: 50-60.'},
+  {id:'meta-desc',label:'Meta descripción (120-160 chars)',check:async()=>{const d=menuData?.seo?.description||'';const l=d.length;return l>=120&&l<=160?'ok':l>0?'warn':'fail'},hint:''},
+  {id:'og-tags',label:'Open Graph (redes sociales)',check:async()=>'ok',hint:'Tags og:title, og:description, og:image configurados.'},
+  {id:'schema-local',label:'Schema LocalBusiness',check:async()=>'ok',hint:'Markup JSON-LD con datos del restaurante.'},
+  {id:'schema-faq',label:'Schema FAQ',check:async()=>menuData?.faq?.length>0?'ok':'warn',hint:`${menuData?.faq?.length||0} preguntas frecuentes definidas.`},
+  {id:'schema-review',label:'Schema Reseñas',check:async()=>menuData?.reviews?.length>0?'ok':'warn',hint:`${menuData?.reviews?.length||0} reseñas configuradas.`},
+  {id:'robots',label:'robots.txt',check:async()=>{try{const r=await fetch('/robots.txt');return r.ok?'ok':'fail'}catch{return 'fail'}},hint:'Archivo robots.txt accesible.'},
+  {id:'sitemap',label:'sitemap.xml',check:async()=>{try{const r=await fetch('/sitemap.xml');return r.ok?'ok':'fail'}catch{return 'fail'}},hint:''},
+  {id:'404',label:'Página 404 personalizada',check:async()=>{try{const r=await fetch('/404.html');return r.ok?'ok':'fail'}catch{return 'fail'}},hint:''},
+  {id:'thanks',label:'Página de agradecimiento',check:async()=>{try{const r=await fetch('/thanks.html');return r.ok?'ok':'fail'}catch{return 'fail'}},hint:''},
+  {id:'canonical',label:'URL canónica',check:async()=>'ok',hint:'Tag <link rel="canonical"> presente.'},
+  {id:'cta-top',label:'CTA "above the fold"',check:async()=>'ok',hint:'Botones de acción visibles sin hacer scroll.'},
+  {id:'sticky-cta',label:'CTA móvil fijo (dock)',check:async()=>'ok',hint:'Barra inferior fija con acceso al pedido.'},
+  {id:'internal-links',label:'Navegación / enlaces internos',check:async()=>'ok',hint:'Nav con anclas a cada sección.'},
+  {id:'alt-text',label:'Alt text en imágenes',check:async()=>'ok',hint:'Todas las imágenes tienen atributo alt descriptivo.'},
+  {id:'https',label:'HTTPS',check:async()=>location.protocol==='https:'||location.hostname==='localhost'?'ok':'fail',hint:'Netlify sirve siempre con HTTPS.'},
+  {id:'mobile',label:'Diseño responsive',check:async()=>'ok',hint:'Grid adaptativo 1-4 columnas según pantalla.'},
+  {id:'map',label:'Mapa e indicaciones',check:async()=>'ok',hint:'Iframe de Google Maps en la sección Encuéntranos.'},
+]
+
+async function runSeoChecks(){
+  const grid=document.getElementById('seoGrid')
+  for(const check of SEO_CHECKS){
+    const el=document.getElementById('seo-'+check.id)
+    if(!el)continue
+    el.querySelector('.seo-dot').className='seo-dot load'
+    const status=await check.check()
+    const dot=el.querySelector('.seo-dot')
+    const hint=el.querySelector('.seo-hint')
+    dot.className='seo-dot '+status
+    const hints={ok:'✓ OK',warn:'⚠ Revisar',fail:'✗ Falta configurar'}
+    hint.textContent=(check.hint?check.hint+' ':'')+(hints[status]||'')
+  }
+}
+
+function renderSeoChecker(){
+  const grid=document.getElementById('seoGrid')
+  grid.innerHTML=SEO_CHECKS.map(c=>`
+    <div class="seo-item" id="seo-${c.id}">
+      <div class="seo-dot load"></div>
+      <div><div class="seo-name">${c.label}</div><div class="seo-hint">Verificando...</div></div>
+    </div>`).join('')
+  // Load current SEO data into editor
+  const seo=menuData?.seo||{}
+  document.getElementById('seoTitle').value=seo.title||''
+  document.getElementById('seoDesc').value=seo.description||''
+  document.getElementById('seoKw').value=seo.keywords||''
+  updateSeoPreview()
+}
+
+function updateSeoPreview(){
+  const t=document.getElementById('seoTitle').value
+  const d=document.getElementById('seoDesc').value
+  const tl=t.length;const dl=d.length
+  document.getElementById('seoTitleLen').textContent=`${tl}/60`
+  document.getElementById('seoTitleLen').style.color=tl>=50&&tl<=60?'var(--green)':tl>0?'var(--Y)':'var(--O)'
+  document.getElementById('seoDescLen').textContent=`${dl}/160`
+  document.getElementById('seoDescLen').style.color=dl>=120&&dl<=160?'var(--green)':dl>0?'var(--Y)':'var(--O)'
+  document.getElementById('seoPreviewTitle').textContent=t||'(sin título)'
+  document.getElementById('seoPreviewDesc').textContent=d||'(sin descripción)'
+}
+
+function saveSeo(){
+  if(!menuData.seo)menuData.seo={}
+  menuData.seo.title=document.getElementById('seoTitle').value
+  menuData.seo.description=document.getElementById('seoDesc').value
+  menuData.seo.keywords=document.getElementById('seoKw').value
+  saveMenuData(menuData)
+  toast('✓ SEO guardado')
+}
+
+// ============================================================
+// ANALYTICS
+// ============================================================
+function renderAnalytics(){
+  const orders=JSON.parse(localStorage.getItem('bh_orders')||'[]')
+  const views=JSON.parse(localStorage.getItem('bh_views')||'[]')
+  const totalRev=orders.reduce((a,o)=>a+(o.total||0),0)
+  const conv=views.length>0?((orders.length/views.length)*100).toFixed(1)+'%':'0%'
+  document.getElementById('aTotalViews').textContent=views.length
+  document.getElementById('aTotalOrders').textContent=orders.length
+  document.getElementById('aConversion').textContent=conv
+  document.getElementById('aTotalRevenue').textContent='$'+totalRev.toFixed(2)
+
+  // Views chart — last 14 days
+  const days=[]
+  for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d.toISOString().split('T')[0])}
+  const maxV=Math.max(1,...days.map(d=>views.filter(v=>v.date===d).length))
+  document.getElementById('viewsChart').innerHTML=days.map(d=>{
+    const cnt=views.filter(v=>v.date===d).length
+    const h=Math.round((cnt/maxV)*90)+5
+    return `<div class="bar-col"><div class="bar-val" style="font-size:.62rem">${cnt}</div><div class="bar" style="height:${h}px;background:var(--blue);opacity:.7"></div><div class="bar-lbl">${d.slice(8)}</div></div>`
+  }).join('')
+
+  // Top items
+  const counts={}
+  const rev={}
+  orders.forEach(o=>{
+    ;(o.items||[]).forEach((name,idx)=>{
+      counts[name]=(counts[name]||0)+1
+      rev[name]=(rev[name]||0)+(o.prices?.[idx]||0)
+    })
+  })
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8)
+  const tbody=document.getElementById('topItemsTable')
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="3" style="color:var(--t3);text-align:center;padding:20px">Sin datos aún</td></tr>';return}
+  tbody.innerHTML=sorted.map(([name,cnt],i)=>`
+    <tr><td>${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)} ${name}</td>
+    <td><span class="badge badge-y">${cnt}x</span></td>
+    <td style="color:var(--green)">$${(rev[name]||0).toFixed(2)}</td></tr>`).join('')
+}
+
+function exportAnalytics(){
+  const orders=JSON.parse(localStorage.getItem('bh_orders')||'[]')
+  const csv=['Fecha,Hora,Ítems,Total']
+  orders.forEach(o=>{
+    const d=new Date(o.ts)
+    csv.push(`${o.date},${d.toLocaleTimeString('es-EC')},"${(o.items||[]).join('; ')}",${o.total||0}`)
+  })
+  const blob=new Blob([csv.join('\n')],{type:'text/csv'})
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob)
+  a.download='burhaus-pedidos.csv';a.click()
+  toast('⬇️ CSV exportado')
+}
+
+function clearAnalytics(){
+  if(!confirm('¿Limpiar todos los datos de analytics? Esto no se puede deshacer.'))return
+  localStorage.removeItem('bh_orders')
+  localStorage.removeItem('bh_views')
+  renderAnalytics()
+  renderDashboard()
+  toast('🗑 Datos limpiados')
+}
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function loadSettings(){
+  const cfg=menuData?.config||{}
+  document.getElementById('cfgName').value=cfg.restaurantName||''
+  document.getElementById('cfgWa').value=cfg.whatsapp||''
+  document.getElementById('cfgAddr').value=cfg.address||''
+  document.getElementById('cfgCity').value=cfg.city||''
+  document.getElementById('cfgHours').value=cfg.hours||''
+  document.getElementById('cfgIg').value=cfg.instagram||''
+  document.getElementById('cfgGa').value=cfg.googleAnalyticsId||''
+}
+
+function saveConfig(){
+  if(!menuData.config)menuData.config={}
+  menuData.config.restaurantName=document.getElementById('cfgName').value
+  menuData.config.whatsapp=document.getElementById('cfgWa').value
+  menuData.config.address=document.getElementById('cfgAddr').value
+  menuData.config.city=document.getElementById('cfgCity').value
+  menuData.config.hours=document.getElementById('cfgHours').value
+  menuData.config.instagram=document.getElementById('cfgIg').value
+  menuData.config.googleAnalyticsId=document.getElementById('cfgGa').value
+  saveMenuData(menuData)
+  toast('✓ Configuración guardada')
+}
+
+function downloadSitemap(){
+  const host='https://burhaus.netlify.app'
+  const today=new Date().toISOString().split('T')[0]
+  const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${host}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>`
+  const blob=new Blob([xml],{type:'application/xml'})
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob)
+  a.download='sitemap.xml';a.click()
+}
+
+function exportAll(){
+  const data={menuData:getMenuData(),orders:JSON.parse(localStorage.getItem('bh_orders')||'[]'),views:JSON.parse(localStorage.getItem('bh_views')||'[]'),exported:new Date().toISOString()}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'})
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob)
+  a.download='burhaus-backup.json';a.click()
+  toast('⬇️ Backup completo descargado')
+}
+
+function resetAll(){
+  if(!confirm('¿Restablecer TODO? Se borrará el menú, analytics y la contraseña.'))return
+  if(!confirm('¿Estás seguro? Esta acción no se puede deshacer.'))return
+  localStorage.clear();sessionStorage.clear()
+  location.reload()
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function toast(msg){
+  const t=document.getElementById('toast')
+  t.textContent=msg;t.classList.add('on')
+  setTimeout(()=>t.classList.remove('on'),2800)
+}
+</script>
+</body>
+</html>

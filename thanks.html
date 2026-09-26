@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¡Gracias por tu pedido! | Burhaus Hamburguesas</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#09090C;--Y:#F59E0B;--green:#22C55E;--t:#F0F0F0;--t2:#888;--border:rgba(255,255,255,.07)}
+body{background:var(--bg);color:var(--t);font-family:'Inter',sans-serif;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.card{background:rgba(16,16,22,.8);border:1px solid var(--border);border-radius:24px;padding:40px 32px;max-width:480px;width:100%;backdrop-filter:blur(20px)}
+.check{font-size:4rem;display:block;animation:pop .5s cubic-bezier(.34,1.56,.64,1);margin-bottom:12px}
+@keyframes pop{from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:none;opacity:1}}
+h1{font-family:'Anton',sans-serif;font-size:2.4rem;color:var(--green);letter-spacing:.06em;margin-bottom:10px;text-shadow:0 0 20px rgba(34,197,94,.3)}
+.sub{color:var(--t2);margin-bottom:28px;line-height:1.7;font-size:.92rem}
+.time-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80;padding:10px 20px;border-radius:50px;font-size:.85rem;font-weight:600;margin-bottom:28px}
+.steps{text-align:left;margin-bottom:28px}
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border:none}
+.step-n{font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--Y);min-width:28px}
+.step-t{font-size:.85rem;color:var(--t2);line-height:1.6}
+.step-t strong{color:var(--t);display:block;margin-bottom:2px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+a.btn{padding:12px 22px;border-radius:50px;font-family:'Anton',sans-serif;font-size:.95rem;text-decoration:none;transition:all .25s}
+.btn-y{background:var(--Y);color:#000}.btn-y:hover{background:#FFB800}
+.btn-w{background:var(--green);color:#fff}.btn-w:hover{opacity:.9}
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="check">✅</span>
+  <h1>¡PEDIDO ENVIADO!</h1>
+  <p class="sub">Tu pedido fue enviado a WhatsApp.<br>Pronto nos pondremos en contacto contigo.</p>
+  <div class="time-badge">⏱ Respondemos en menos de 5 minutos</div>
+  <div class="steps">
+    <div class="step"><span class="step-n">1</span><div class="step-t"><strong>Confirmamos tu pedido</strong>Te contactamos por WhatsApp para confirmar dirección y detalles.</div></div>
+    <div class="step"><span class="step-n">2</span><div class="step-t"><strong>Preparamos tu orden</strong>Nuestro equipo prepara tu hamburguesa con ingredientes frescos.</div></div>
+    <div class="step"><span class="step-n">3</span><div class="step-t"><strong>Delivery o retiro</strong>Te enviamos el delivery o te esperamos en Av. Granados y Jose Queri.</div></div>
+  </div>
+  <div class="btns">
+    <a class="btn btn-y" href="/">🍔 Ver más</a>
+    <a class="btn btn-w" href="https://wa.me/593994305872" target="_blank">💬 Escribirnos</a>
+  </div>
+</div>
+</body>
+</html>
