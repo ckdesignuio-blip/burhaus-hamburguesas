@@ -6,7 +6,7 @@ const hdrs = { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
 
 async function ghGet(path) {
   const headers = { 'User-Agent': 'burhaus-admin' }
-  if (process.env.GITHUB_TOKEN) headers.Authorization = `token ${process.env.GITHUB_TOKEN}`
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
   const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, { headers })
   if (!r.ok) throw new Error(`GitHub GET ${r.status}`)
   return r.json()
@@ -15,7 +15,7 @@ async function ghGet(path) {
 async function ghPut(path, content, sha) {
   const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
     method: 'PUT',
-    headers: { Authorization: `token ${process.env.GITHUB_TOKEN}`, 'Content-Type': 'application/json', 'User-Agent': 'burhaus-admin' },
+    headers: { Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, 'Content-Type': 'application/json', 'User-Agent': 'burhaus-admin' },
     body: JSON.stringify({ message: 'Update menu from admin panel', content, sha })
   })
   if (!r.ok) { const e = await r.text(); throw new Error(`GitHub PUT ${r.status}: ${e}`) }
