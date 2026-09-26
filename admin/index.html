@@ -21,10 +21,13 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--t);font-family:'Inter',sans-serif;display:flex}
 
 /* GATE */
-#gate{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+#gate{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:center}
 .gate-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px 32px;width:100%;max-width:380px;text-align:center}
-.gate-logo{font-family:'Anton',sans-serif;font-size:1.8rem;color:var(--Y);letter-spacing:.1em;margin-bottom:4px;text-shadow:var(--neon-y)}
-.gate-sub{font-size:.75rem;color:var(--t2);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
+.gate-banner{width:calc(100% + 64px);margin:-40px -32px 24px;height:140px;border-radius:20px 20px 0 0;overflow:hidden;position:relative}
+.gate-banner img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.gate-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(7,7,10,.85))}
+.gate-banner-name{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:'Anton',sans-serif;font-size:2rem;color:var(--Y);letter-spacing:.15em;text-shadow:0 0 24px rgba(245,158,11,.7);z-index:1}
+.gate-sub{font-size:.75rem;color:var(--t2);letter-spacing:.2em;text-transform:uppercase}
 .gate-title{font-family:'Anton',sans-serif;font-size:1.2rem;margin-bottom:6px}
 .gate-desc{font-size:.8rem;color:var(--t2);margin-bottom:20px;line-height:1.6}
 .field{margin-bottom:14px;text-align:left}
@@ -165,8 +168,11 @@ input[type=file]{display:none}
 <!-- LOGIN GATE -->
 <div id="gate">
   <div class="gate-box">
-    <div class="gate-logo">🍔 BURHAUS</div>
-    <div class="gate-sub">Panel Administrativo</div>
+    <div class="gate-banner">
+      <img src="banner.jpg" alt="BURHAUS Hamburguesas">
+      <span class="gate-banner-name">BURHAUS</span>
+    </div>
+    <div class="gate-sub" style="margin-bottom:20px">Panel Administrativo</div>
     <div class="gate-title">Acceso seguro</div>
     <div class="gate-desc">Solo usuarios autorizados pueden entrar.<br>Inicia sesión con tu correo invitado.</div>
     <button class="btn-y" onclick="netlifyIdentity.open()">Iniciar sesión →</button>
