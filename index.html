@@ -214,7 +214,7 @@ nav.sc{top:0;background:rgba(9,9,12,.92);backdrop-filter:blur(24px);border-botto
 .ndiv{height:1px;background:linear-gradient(to right,transparent,rgba(245,158,11,.15),transparent);margin:0 32px}
 
 /* CARD */
-.pcard{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .35s;opacity:0}
+.pcard{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .35s}
 .pcard.vis{opacity:1}
 .pcard:hover{border-color:rgba(245,158,11,.25);box-shadow:0 20px 60px rgba(0,0,0,.5);transform:translateY(-5px)}
 .pc-iw{height:230px;overflow:hidden;position:relative;background:rgba(255,255,255,.03)}
@@ -642,11 +642,12 @@ async function loadMenu() {
   try {
     const r = await fetch('/data/menu.json')
     if (r.ok) { MENU = await r.json() }
-  } catch {}
+  } catch(e) { console.warn('menu fetch error:', e) }
   if (!MENU) {
-    // Fallback: load from localStorage (admin may have saved changes)
-    const stored = localStorage.getItem('bh_menu_data')
-    if (stored) MENU = JSON.parse(stored)
+    try {
+      const stored = localStorage.getItem('bh_menu_data')
+      if (stored) MENU = JSON.parse(stored)
+    } catch {}
   }
   if (MENU) applyMenuData()
   renderAll()
@@ -925,9 +926,16 @@ function toggleMob() { document.getElementById('mob').classList.toggle('on') }
 // ============================================================
 function setupReveal() {
   const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target) } })
-  }, { threshold: .1 })
-  document.querySelectorAll('.reveal,.pcard,.rcard').forEach(el => { el.style.opacity='0'; ro.observe(el) })
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = ''
+        e.target.style.transform = ''
+        e.target.classList.add('vis')
+        ro.unobserve(e.target)
+      }
+    })
+  }, { threshold: .05 })
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el))
 }
 
 // ============================================================
