@@ -21,187 +21,325 @@
     "keywords": "hamburguesas quito, smash burger quito, mejor hamburguesa quito, burhaus hamburguesas, fast food quito, delivery hamburguesas quito"
   },
   "categories": [
-    { "id": "burgers", "label": "Burgers Clásicas", "subtitle": "Nuestras Especialidades", "order": 1 },
-    { "id": "nuevas", "label": "Burgers Nuevas", "subtitle": "Recién llegadas", "order": 2 },
-    { "id": "sanduches", "label": "Sánduches", "subtitle": "Specialty Subs", "order": 3 },
-    { "id": "papas", "label": "Papas", "subtitle": "Acompañamiento", "order": 4 },
-    { "id": "bebidas", "label": "Bebidas", "subtitle": "Para refrescarte", "order": 5 },
-    { "id": "extras", "label": "Extras", "subtitle": "Personaliza tu pedido", "order": 6 }
+    {
+      "id": "burgers",
+      "label": "Burgers Clásicas",
+      "subtitle": "Nuestras Especialidades",
+      "order": 1
+    },
+    {
+      "id": "nuevas",
+      "label": "Burgers Nuevas",
+      "subtitle": "Recién llegadas",
+      "order": 2
+    },
+    {
+      "id": "sanduches",
+      "label": "Sánduches",
+      "subtitle": "Specialty Subs",
+      "order": 3
+    },
+    {
+      "id": "papas",
+      "label": "Papas",
+      "subtitle": "Acompañamiento",
+      "order": 4
+    },
+    {
+      "id": "bebidas",
+      "label": "Bebidas",
+      "subtitle": "Para refrescarte",
+      "order": 5
+    },
+    {
+      "id": "extras",
+      "label": "Extras",
+      "subtitle": "Personaliza tu pedido",
+      "order": 6
+    }
   ],
   "items": [
     {
-      "id": "sw", "category": "burgers", "available": true,
+      "id": "sw",
+      "category": "burgers",
+      "available": true,
       "name": "Sweet Onion",
-      "desc": "Carne de res, tocino, queso, cebolla caramelizada, salsas de la casa.",
+      "desc": "Carne (Brisket 110gr), tocino, queso, cebolla caramelizada, salsas de la casa.",
       "image": "/images/sweet-onion.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "bh", "category": "burgers", "available": true,
+      "id": "bh",
+      "category": "burgers",
+      "available": true,
       "name": "Burhaus",
       "desc": "Carne de res, pickles, tocino, queso cheddar, salsas de la casa.",
       "image": "/images/burhaus.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "mg", "category": "burgers", "available": true,
+      "id": "mg",
+      "category": "burgers",
+      "available": true,
       "name": "Magic Haus",
       "desc": "Carne de res, tocino, queso cheddar, cebolla, tomate, lechuga, salsas de la casa.",
       "image": "/images/magic-haus.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "ch", "category": "burgers", "available": true,
+      "id": "ch",
+      "category": "burgers",
+      "available": true,
       "name": "Chicken Burger",
       "desc": "Pollo, cebolla, tocino, queso cheddar, tomate, lechuga, BBQ, salsas de la casa.",
       "image": "/images/chicken-burger.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "cs", "category": "burgers", "available": true,
+      "id": "cs",
+      "category": "burgers",
+      "available": true,
       "name": "Cheese Haus",
       "desc": "Carne de res, queso cheddar, salsas de la casa.",
       "image": "/images/cheese-haus.jpg",
-      "priceS": 4.25, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 4.25,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "33", "category": "burgers", "available": true,
+      "id": "33",
+      "category": "burgers",
+      "available": true,
       "name": "3.3",
       "desc": "Res desmechado, salsa de birria, carne smash, queso cheddar, aros de cebolla, culantro, nachos.",
       "image": "/images/tres-tres.jpg",
-      "priceS": 7.99, "priceD": 9.49, "priceG": 8.00,
+      "priceS": 7.99,
+      "priceD": 9.49,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "jk", "category": "burgers", "available": true,
+      "id": "jk",
+      "category": "burgers",
+      "available": true,
       "name": "Jack Haus",
       "desc": "Carne de res, queso cheddar, pulled pork + BBQ + Jack Daniel's, aros de cebolla, salsas de la casa.",
       "image": "/images/jack-haus.jpg",
-      "priceS": 7.99, "priceD": 9.49, "priceG": 8.00,
+      "priceS": 7.99,
+      "priceD": 9.49,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "mon", "category": "nuevas", "available": true,
+      "id": "mon",
+      "category": "nuevas",
+      "available": true,
       "name": "Monster",
       "desc": "Carne de res brisket, queso cheddar, tocino, pickles, tomate, lechuga, cebolla, salsa de la casa.",
       "image": "/images/monster.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "jdp", "category": "nuevas", "available": true,
+      "id": "jdp",
+      "category": "nuevas",
+      "available": true,
       "name": "Jack Daniel's Piña",
       "desc": "Carne de res, queso cheddar, tocino, piña, cebolla caramelizada, salsas de la casa, salsa Jack Daniel's.",
       "image": "/images/jd-pina.jpg",
-      "priceS": 5.50, "priceD": 6.50, "priceG": 8.00,
+      "priceS": 5.5,
+      "priceD": 6.5,
+      "priceG": 8,
       "note": "Incluye papas fritas"
     },
     {
-      "id": "pu", "category": "sanduches", "available": true,
+      "id": "pu",
+      "category": "sanduches",
+      "available": true,
       "name": "Pulled Pork",
       "desc": "Cerdo desmechado, queso cheddar, aros de cebolla, salsa BBQ + Jack Daniel's.",
       "image": "/images/pulled-pork.jpg",
       "price": 6.55
     },
     {
-      "id": "bi", "category": "sanduches", "available": true,
+      "id": "bi",
+      "category": "sanduches",
+      "available": true,
       "name": "Birria",
       "desc": "Res desmechado, salsa de birria, queso cheddar, aros de cebolla, culantro, nachos.",
       "image": "/images/birria.jpg",
       "price": 6.55
     },
     {
-      "id": "pf", "category": "papas", "available": true,
+      "id": "pf",
+      "category": "papas",
+      "available": true,
       "name": "Papas Fritas",
       "desc": "Con sal de mar.",
       "image": "/images/papas-fritas.jpg",
       "price": 1.99
     },
     {
-      "id": "sp", "category": "papas", "available": true,
+      "id": "sp",
+      "category": "papas",
+      "available": true,
       "name": "Salchipapas",
       "desc": "La clásica ecuatoriana.",
       "image": "/images/salchipapas.jpg",
       "price": 2.99
     },
     {
-      "id": "dp", "category": "papas", "available": true,
+      "id": "dp",
+      "category": "papas",
+      "available": true,
       "name": "Dirty Papas",
       "desc": "Queso, tocino, cebolla caramelizada, queso fundido, piña, salsa Jack Daniel's, cerdo desmechado.",
       "image": "/images/dirty-papas.jpg",
-      "price": 4.80
+      "price": 4.8
     },
     {
-      "id": "bp", "category": "papas", "available": true,
+      "id": "bp",
+      "category": "papas",
+      "available": true,
       "name": "Birripapas",
       "desc": "Papas (300g), res desmechada, salsa de birria, Doritos, cebolla, culantro, queso cheddar, perejil, salsa amarilla.",
       "image": "/images/birripapas.jpg",
       "price": 5.45
     },
     {
-      "id": "bg", "category": "bebidas", "available": true,
-      "name": "Gaseosa", "emoji": "🥤", "price": 1.00
+      "id": "bg",
+      "category": "bebidas",
+      "available": true,
+      "name": "Gaseosa",
+      "emoji": "🥤",
+      "price": 1
     },
     {
-      "id": "bt", "category": "bebidas", "available": true,
-      "name": "Té", "emoji": "🍵", "price": 1.00
+      "id": "bt",
+      "category": "bebidas",
+      "available": true,
+      "name": "Té",
+      "emoji": "🍵",
+      "price": 1
     },
     {
-      "id": "bc", "category": "bebidas", "available": true,
-      "name": "Cerveza", "emoji": "🍺", "price": 2.00
+      "id": "bc",
+      "category": "bebidas",
+      "available": true,
+      "name": "Cerveza",
+      "emoji": "🍺",
+      "price": 2
     },
     {
-      "id": "ba", "category": "bebidas", "available": true,
-      "name": "Agua", "emoji": "💧", "price": 0.90
+      "id": "ba",
+      "category": "bebidas",
+      "available": true,
+      "name": "Agua",
+      "emoji": "💧",
+      "price": 0.9
     },
     {
-      "id": "bag","category": "bebidas", "available": true,
-      "name": "Agua con Gas", "emoji": "🧊", "price": 1.00
+      "id": "bag",
+      "category": "bebidas",
+      "available": true,
+      "name": "Agua con Gas",
+      "emoji": "🧊",
+      "price": 1
     },
     {
-      "id": "ehv", "category": "extras", "available": true,
-      "name": "Huevo", "emoji": "🍳", "price": 0.60
+      "id": "ehv",
+      "category": "extras",
+      "available": true,
+      "name": "Huevo",
+      "emoji": "🍳",
+      "price": 0.6
     },
     {
-      "id": "etc", "category": "extras", "available": true,
-      "name": "Tocino", "emoji": "🥓", "price": 0.90
+      "id": "etc",
+      "category": "extras",
+      "available": true,
+      "name": "Tocino",
+      "emoji": "🥓",
+      "price": 0.9
     },
     {
-      "id": "ecq", "category": "extras", "available": true,
-      "name": "Carne + Queso", "emoji": "🥩", "price": 1.60
+      "id": "ecq",
+      "category": "extras",
+      "available": true,
+      "name": "Carne + Queso",
+      "emoji": "🥩",
+      "price": 1.6
     },
     {
-      "id": "ecr", "category": "extras", "available": true,
-      "name": "Carne", "emoji": "🥩", "price": 1.00
+      "id": "ecr",
+      "category": "extras",
+      "available": true,
+      "name": "Carne",
+      "emoji": "🥩",
+      "price": 1
     },
     {
-      "id": "ejl", "category": "extras", "available": true,
-      "name": "Jalapeño", "emoji": "🌶", "price": 0.90
+      "id": "ejl",
+      "category": "extras",
+      "available": true,
+      "name": "Jalapeño",
+      "emoji": "🌶",
+      "price": 0.9
     },
     {
-      "id": "eqc", "category": "extras", "available": true,
-      "name": "Queso Cheddar", "emoji": "🧀", "price": 0.90
+      "id": "eqc",
+      "category": "extras",
+      "available": true,
+      "name": "Queso Cheddar",
+      "emoji": "🧀",
+      "price": 0.9
     },
     {
-      "id": "epk", "category": "extras", "available": true,
-      "name": "Pickles", "emoji": "🥒", "price": 0.75
+      "id": "epk",
+      "category": "extras",
+      "available": true,
+      "name": "Pickles",
+      "emoji": "🥒",
+      "price": 0.75
     },
     {
-      "id": "eao", "category": "extras", "available": true,
-      "name": "Aros de Cebolla", "emoji": "🧅", "price": 0.75
+      "id": "eao",
+      "category": "extras",
+      "available": true,
+      "name": "Aros de Cebolla",
+      "emoji": "🧅",
+      "price": 0.75
     },
     {
-      "id": "ecc", "category": "extras", "available": true,
-      "name": "Cebolla Caramelizada", "emoji": "🧅", "price": 0.85
+      "id": "ecc",
+      "category": "extras",
+      "available": true,
+      "name": "Cebolla Caramelizada",
+      "emoji": "🧅",
+      "price": 0.85
     },
     {
-      "id": "epa", "category": "extras", "available": true,
-      "name": "Piña", "emoji": "🍍", "price": 0.90
+      "id": "epa",
+      "category": "extras",
+      "available": true,
+      "name": "Piña",
+      "emoji": "🍍",
+      "price": 0.9
     }
   ],
   "reviews": [
