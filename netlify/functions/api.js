@@ -1,51 +1,64 @@
-const { getStore } = require('@netlify/blobs')
+const OWNER = 'ckdesignuio-blip'
+const REPO  = 'burhaus-hamburguesas'
+const MENU  = 'data/menu.json'
 
 const hdrs = { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
 
+async function ghGet(path) {
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    headers: { Authorization: `token ${process.env.GITHUB_TOKEN}`, 'User-Agent': 'burhaus-admin' }
+  })
+  if (!r.ok) throw new Error(`GitHub GET ${r.status}`)
+  return r.json()
+}
+
+async function ghPut(path, content, sha) {
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: { Authorization: `token ${process.env.GITHUB_TOKEN}`, 'Content-Type': 'application/json', 'User-Agent': 'burhaus-admin' },
+    body: JSON.stringify({ message: 'Update menu from admin panel', content, sha })
+  })
+  if (!r.ok) { const e = await r.text(); throw new Error(`GitHub PUT ${r.status}: ${e}`) }
+  return r.json()
+}
+
 exports.handler = async (event, context) => {
   const method = event.httpMethod
-  const qs = event.queryStringParameters || {}
-  try {
-    const store = getStore({ name: 'burhaus', context })
+  const qs    = event.queryStringParameters || {}
 
-    // ── GET ───────────────────────────────────────────────────
+  try {
     if (method === 'GET') {
       if (qs.action === 'get-menu') {
-        const data = await store.get('menu')
-        if (!data) return { statusCode: 404, headers: hdrs, body: '{"error":"not_found"}' }
-        return { statusCode: 200, headers: { ...hdrs, 'Cache-Control': 'max-age=30' }, body: data }
+        try {
+          const file = await ghGet(MENU)
+          const body = Buffer.from(file.content, 'base64').toString('utf-8')
+          return { statusCode: 200, headers: { ...hdrs, 'Cache-Control': 'max-age=30' }, body }
+        } catch {
+          return { statusCode: 404, headers: hdrs, body: '{"error":"not_found"}' }
+        }
       }
-      // Protected reads
       const user = context.clientContext?.user
       if (!user) return { statusCode: 401, headers: hdrs, body: '{"error":"unauthorized"}' }
       if (qs.action === 'get-orders') {
-        const raw = (await store.get('orders')) || '[]'
-        return { statusCode: 200, headers: hdrs, body: JSON.stringify({ orders: JSON.parse(raw) }) }
+        return { statusCode: 200, headers: hdrs, body: '{"orders":[]}' }
       }
     }
 
-    // ── POST ──────────────────────────────────────────────────
     if (method === 'POST') {
       let body
-      try { body = JSON.parse(event.body || '{}') }
-      catch { return { statusCode: 400, headers: hdrs, body: '{"error":"bad_json"}' } }
+      try { body = JSON.parse(event.body || '{}') } catch { return { statusCode: 400, headers: hdrs, body: '{"error":"bad_json"}' } }
 
-      // Public: record order (no auth needed — no sensitive data)
       if (body.action === 'save-order') {
-        const raw = (await store.get('orders')) || '[]'
-        const orders = JSON.parse(raw)
-        orders.push({ ...body.order, ts: Date.now() })
-        if (orders.length > 5000) orders.splice(0, orders.length - 5000)
-        await store.set('orders', JSON.stringify(orders))
         return { statusCode: 200, headers: hdrs, body: '{"ok":true}' }
       }
 
-      // Protected writes — require Netlify Identity JWT
       const user = context.clientContext?.user
       if (!user) return { statusCode: 401, headers: hdrs, body: '{"error":"unauthorized"}' }
 
       if (body.action === 'save-menu') {
-        await store.set('menu', JSON.stringify(body.data))
+        const file    = await ghGet(MENU)
+        const content = Buffer.from(JSON.stringify(body.data, null, 2)).toString('base64')
+        await ghPut(MENU, content, file.sha)
         return { statusCode: 200, headers: hdrs, body: '{"ok":true}' }
       }
     }
