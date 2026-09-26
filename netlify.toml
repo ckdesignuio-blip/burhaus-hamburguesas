@@ -1,10 +1,10 @@
 [build]
   publish = "."
-  command = ""
+  command = "npm install"
+  functions = "netlify/functions"
 
 [build.environment]
-  # Agrega aqui variables de entorno (nunca contraseñas en texto plano)
-  # ADMIN_GA_ID = "G-XXXXXXXXXX"
+  NODE_VERSION = "18"
 
 [[headers]]
   for = "/*"

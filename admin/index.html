@@ -7,6 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -166,21 +167,10 @@ input[type=file]{display:none}
   <div class="gate-box">
     <div class="gate-logo">🍔 BURHAUS</div>
     <div class="gate-sub">Panel Administrativo</div>
-    <div id="gateSetup">
-      <div class="gate-title">Configurar acceso</div>
-      <div class="gate-desc">Primera vez. Crea una contraseña segura para el panel.<br>No se guarda en ningún servidor.</div>
-      <div class="field"><label>Nueva contraseña</label><input type="password" id="pw1" placeholder="Mínimo 8 caracteres"></div>
-      <div class="field"><label>Confirmar contraseña</label><input type="password" id="pw2" placeholder="Repite la contraseña"></div>
-      <button class="btn-y" onclick="setupPw()">Crear acceso →</button>
-      <div class="gate-err" id="gateErr"></div>
-    </div>
-    <div id="gateLogin" style="display:none">
-      <div class="gate-title">Iniciar sesión</div>
-      <div class="gate-desc">Ingresa tu contraseña de administrador.</div>
-      <div class="field"><label>Contraseña</label><input type="password" id="pwIn" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()"></div>
-      <button class="btn-y" onclick="login()">Entrar →</button>
-      <div class="gate-err" id="loginErr"></div>
-    </div>
+    <div class="gate-title">Acceso seguro</div>
+    <div class="gate-desc">Solo usuarios autorizados pueden entrar.<br>Inicia sesión con tu correo invitado.</div>
+    <button class="btn-y" onclick="netlifyIdentity.open()">Iniciar sesión →</button>
+    <div style="margin-top:14px;font-size:.74rem;color:var(--t3)">¿No tienes acceso? Pide una invitación al dueño.</div>
   </div>
 </div>
 
@@ -200,6 +190,7 @@ input[type=file]{display:none}
       <div class="nav-item" onclick="showTab('settings',this)"><span class="nav-em">⚙️</span><span>Ajustes</span></div>
     </nav>
     <div class="aside-foot">
+      <div style="font-size:.65rem;color:var(--t3);margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px" id="userEmailDisplay"></div>
       <button class="btn-logout" onclick="logout()"><span>Cerrar sesión</span></button>
     </div>
   </aside>
@@ -235,8 +226,8 @@ input[type=file]{display:none}
       <div class="save-bar">
         <p>Cambios pendientes: <span id="changeCount">0</span></p>
         <div style="display:flex;gap:8px">
-          <button class="btn-secondary" onclick="downloadJSON()">⬇️ Descargar menu.json</button>
-          <button class="btn-save" onclick="saveMenu()">💾 Guardar cambios</button>
+          <button class="btn-secondary" onclick="downloadJSON()">⬇️ Backup JSON</button>
+          <button class="btn-save" onclick="saveMenu()">🌐 Guardar y publicar</button>
         </div>
       </div>
     </div>
@@ -247,10 +238,8 @@ input[type=file]{display:none}
       <div class="page-sub">Sube nuevas fotos para cada producto. Formato JPG/PNG, máx 4MB.</div>
       <div class="photo-grid" id="photoGrid"></div>
       <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:16px;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.7">
-        <strong style="color:var(--Y)">📋 Cómo actualizar fotos en el sitio:</strong><br>
-        1. Sube la nueva foto aquí (se guarda solo en este navegador como vista previa)<br>
-        2. Copia la imagen a la carpeta <code style="color:var(--Y)">images/</code> de tu proyecto con el nombre indicado<br>
-        3. Sube a GitHub → Netlify redeploya automáticamente en ~1 minuto
+        <strong style="color:var(--Y)">📋 Cómo actualizar fotos:</strong><br>
+        Las fotos están alojadas como archivos estáticos. Para cambiarlas, contacta al técnico para subir nuevas imágenes. Los precios, nombres y disponibilidad se actualizan aquí sin necesidad de ningún despliegue.
       </div>
     </div>
 
@@ -280,8 +269,7 @@ input[type=file]{display:none}
             <div id="seoPreviewDesc" style="color:#BDC1C6;font-size:.8rem;line-height:1.5">—</div>
           </div>
           <div style="display:flex;gap:8px;margin-top:14px">
-            <button class="btn-save" onclick="saveSeo()">💾 Guardar SEO</button>
-            <button class="btn-secondary" onclick="applySeoToMenu()">🔄 Aplicar al index.html</button>
+            <button class="btn-save" onclick="saveSeo()">🌐 Guardar y publicar SEO</button>
           </div>
         </div>
       </div>
@@ -329,24 +317,15 @@ input[type=file]{display:none}
           <button class="btn-save" style="margin-top:8px" onclick="saveConfig()">💾 Guardar</button>
         </div>
         <div class="settings-card">
-          <h3>🔐 Seguridad</h3>
-          <div class="field-sm"><label>Contraseña actual</label><input type="password" id="pwCur" placeholder="Contraseña actual"></div>
-          <div class="field-sm"><label>Nueva contraseña</label><input type="password" id="pwNew" placeholder="Nueva contraseña"></div>
-          <div class="field-sm"><label>Confirmar nueva</label><input type="password" id="pwCon" placeholder="Confirmar nueva"></div>
-          <button class="btn-save" style="margin-top:8px" onclick="changePw()">🔑 Cambiar contraseña</button>
-          <div class="gate-err" id="pwChangeErr" style="text-align:left"></div>
+          <h3>🔐 Acceso y usuarios</h3>
+          <p style="font-size:.82rem;color:var(--t2);line-height:1.7;margin-bottom:12px">Sesión activa: <strong id="settingsUserEmail" style="color:var(--Y)">—</strong><br>Para invitar más usuarios o cambiar tu contraseña, usa el panel de Netlify Identity.</p>
+          <button class="btn-secondary" style="width:100%;margin-bottom:8px" onclick="logout()">🚪 Cerrar sesión</button>
         </div>
         <div class="settings-card">
-          <h3>🚀 Publicar en Netlify</h3>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.8;margin-bottom:14px">
-            <div style="margin-bottom:6px;color:var(--t);font-weight:600">Pasos para publicar:</div>
-            <div>1. Descarga el <code style="color:var(--Y)">menu.json</code> actualizado</div>
-            <div>2. Reemplaza <code style="color:var(--Y)">data/menu.json</code> en tu carpeta</div>
-            <div>3. Sube a GitHub (commit + push)</div>
-            <div>4. Netlify redeploya automáticamente (~1 min)</div>
-          </div>
-          <button class="btn-secondary" style="margin-bottom:8px;width:100%" onclick="downloadJSON()">⬇️ Descargar menu.json</button>
-          <button class="btn-secondary" style="width:100%" onclick="downloadSitemap()">⬇️ Descargar sitemap.xml</button>
+          <h3>🚀 Publicación automática</h3>
+          <p style="font-size:.82rem;color:var(--t2);line-height:1.7;margin-bottom:12px">Los cambios de precios, nombres y disponibilidad se publican <strong style="color:var(--green)">instantáneamente</strong> al presionar "Guardar y publicar". No se requiere GitHub ni re-deploy.</p>
+          <button class="btn-secondary" style="margin-bottom:8px;width:100%" onclick="downloadJSON()">⬇️ Backup menu.json</button>
+          <button class="btn-secondary" style="width:100%" onclick="downloadSitemap()">⬇️ Backup sitemap.xml</button>
         </div>
         <div class="settings-card">
           <h3>🗑 Datos</h3>
@@ -365,107 +344,75 @@ input[type=file]{display:none}
 
 <script>
 // ============================================================
-// AUTH (SHA-256, sin contraseñas en código)
+// AUTH — Netlify Identity (cero credenciales en código)
 // ============================================================
-async function sha256(str){
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
-  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+netlifyIdentity.on('init', user => { user ? launchApp() : showGate() })
+netlifyIdentity.on('login', () => { netlifyIdentity.close(); launchApp() })
+netlifyIdentity.on('logout', () => showGate())
+
+function showGate(){
+  document.getElementById('gate').style.display='flex'
+  document.getElementById('app').style.display='none'
 }
 
-function getHash(){return localStorage.getItem('bh_admin_hash')}
-function getSession(){return sessionStorage.getItem('bh_admin_session')==='1'}
-
-async function setupPw(){
-  const p1=document.getElementById('pw1').value
-  const p2=document.getElementById('pw2').value
-  const err=document.getElementById('gateErr')
-  if(p1.length<8){err.textContent='Mínimo 8 caracteres';return}
-  if(p1!==p2){err.textContent='Las contraseñas no coinciden';return}
-  const h=await sha256(p1)
-  localStorage.setItem('bh_admin_hash',h)
-  sessionStorage.setItem('bh_admin_session','1')
-  err.textContent=''
-  launchApp()
-}
-
-async function login(){
-  const p=document.getElementById('pwIn').value
-  const err=document.getElementById('loginErr')
-  const h=await sha256(p)
-  if(h===getHash()){
-    sessionStorage.setItem('bh_admin_session','1')
-    err.textContent=''
-    launchApp()
-  } else {
-    err.textContent='Contraseña incorrecta'
-    document.getElementById('pwIn').value=''
-  }
-}
-
-async function changePw(){
-  const cur=document.getElementById('pwCur').value
-  const nw=document.getElementById('pwNew').value
-  const co=document.getElementById('pwCon').value
-  const err=document.getElementById('pwChangeErr')
-  const curH=await sha256(cur)
-  if(curH!==getHash()){err.textContent='Contraseña actual incorrecta';return}
-  if(nw.length<8){err.textContent='Mínimo 8 caracteres';return}
-  if(nw!==co){err.textContent='Las nuevas no coinciden';return}
-  const h=await sha256(nw)
-  localStorage.setItem('bh_admin_hash',h)
-  err.textContent=''
-  err.style.color='var(--green)'
-  err.textContent='✓ Contraseña cambiada'
-  document.getElementById('pwCur').value=''
-  document.getElementById('pwNew').value=''
-  document.getElementById('pwCon').value=''
-  setTimeout(()=>{err.textContent='';err.style.color='var(--O)'},3000)
-}
-
-function logout(){
-  sessionStorage.removeItem('bh_admin_session')
-  location.reload()
-}
+function logout(){ netlifyIdentity.logout() }
 
 function launchApp(){
   document.getElementById('gate').style.display='none'
   document.getElementById('app').style.display='flex'
+  const user=netlifyIdentity.currentUser()
+  if(user){
+    const em=user.email||''
+    const d=document.getElementById('userEmailDisplay')
+    const s=document.getElementById('settingsUserEmail')
+    if(d) d.textContent=em
+    if(s) s.textContent=em
+  }
   initApp()
 }
 
-// Gate routing
-(function(){
-  if(getSession()){launchApp();return}
-  if(getHash()){
-    document.getElementById('gateSetup').style.display='none'
-    document.getElementById('gateLogin').style.display='block'
-  }
-})()
+// ============================================================
+// API HELPER — JWT de Netlify Identity, sin claves en código
+// ============================================================
+async function apiPost(body){
+  const user=netlifyIdentity.currentUser()
+  if(!user) throw new Error('No autenticado')
+  await user.jwt(true)
+  const token=user.token.access_token
+  const r=await fetch('/.netlify/functions/api',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+    body:JSON.stringify(body)
+  })
+  if(!r.ok){const t=await r.text();throw new Error('Error '+r.status+': '+t)}
+  return r.json()
+}
+
+async function apiGet(params){
+  const user=netlifyIdentity.currentUser()
+  const qs=new URLSearchParams(params)
+  const hdrs={}
+  if(user){await user.jwt(true);hdrs['Authorization']='Bearer '+user.token.access_token}
+  const r=await fetch('/.netlify/functions/api?'+qs,{headers:hdrs})
+  if(!r.ok){const t=await r.text();throw new Error('Error '+r.status+': '+t)}
+  return r.json()
+}
 
 // ============================================================
 // DATA LAYER
 // ============================================================
-function getMenuData(){
-  const stored=localStorage.getItem('bh_menu_data')
-  if(stored) return JSON.parse(stored)
-  return null
+async function fetchMenuData(){
+  // API primero (Netlify Blobs)
+  try{const data=await apiGet({action:'get-menu'});if(data)return data}catch{}
+  // Fallback al archivo estático
+  try{const r=await fetch('../data/menu.json');if(r.ok)return await r.json()}catch{}
+  return {items:[],config:{},seo:{},reviews:[],faq:[]}
 }
+
+function getMenuData(){ return menuData }
 
 function saveMenuData(data){
-  localStorage.setItem('bh_menu_data',JSON.stringify(data))
-}
-
-async function fetchMenuData(){
-  try{
-    const r=await fetch('../data/menu.json')
-    if(!r.ok) throw new Error('not found')
-    const data=await r.json()
-    saveMenuData(data)
-    return data
-  }catch{
-    const stored=getMenuData()
-    return stored || {items:[],config:{},seo:{},reviews:[],faq:[]}
-  }
+  try{ localStorage.setItem('bh_menu_data',JSON.stringify(data)) } catch{}
 }
 
 let menuData=null
@@ -504,9 +451,11 @@ function showTab(id,el){
 // ============================================================
 // DASHBOARD
 // ============================================================
-function renderDashboard(){
+async function renderDashboard(){
   const today=new Date().toISOString().split('T')[0]
-  const orders=JSON.parse(localStorage.getItem('bh_orders')||'[]')
+  // Intentar obtener pedidos del servidor (todos los dispositivos)
+  let orders=JSON.parse(localStorage.getItem('bh_orders')||'[]')
+  try{const res=await apiGet({action:'get-orders'});if(res.orders?.length)orders=res.orders}catch{}
   const views=JSON.parse(localStorage.getItem('bh_views')||'[]')
   const todayOrders=orders.filter(o=>o.date===today)
   const todayViews=views.filter(v=>v.date===today)
@@ -598,11 +547,20 @@ function updateItem(id,field,val){
   if(item){item[field]=val;markChanged()}
 }
 
-function saveMenu(){
-  saveMenuData(menuData)
-  changes=0
-  document.getElementById('changeCount').textContent=0
-  toast('✓ Cambios guardados en el navegador')
+async function saveMenu(){
+  const btn=document.querySelector('.btn-save')
+  if(btn){btn.textContent='⏳ Publicando...';btn.disabled=true}
+  try{
+    await apiPost({action:'save-menu',data:menuData})
+    saveMenuData(menuData)
+    changes=0
+    document.getElementById('changeCount').textContent=0
+    toast('✓ Menú guardado y publicado en el sitio')
+  }catch(e){
+    toast('❌ '+e.message)
+  }finally{
+    if(btn){btn.textContent='🌐 Guardar y publicar';btn.disabled=false}
+  }
 }
 
 function downloadJSON(){
@@ -716,13 +674,16 @@ function updateSeoPreview(){
   document.getElementById('seoPreviewDesc').textContent=d||'(sin descripción)'
 }
 
-function saveSeo(){
+async function saveSeo(){
   if(!menuData.seo)menuData.seo={}
   menuData.seo.title=document.getElementById('seoTitle').value
   menuData.seo.description=document.getElementById('seoDesc').value
   menuData.seo.keywords=document.getElementById('seoKw').value
-  saveMenuData(menuData)
-  toast('✓ SEO guardado')
+  try{
+    await apiPost({action:'save-menu',data:menuData})
+    saveMenuData(menuData)
+    toast('✓ SEO guardado y publicado')
+  }catch(e){toast('❌ '+e.message)}
 }
 
 // ============================================================
@@ -802,7 +763,7 @@ function loadSettings(){
   document.getElementById('cfgGa').value=cfg.googleAnalyticsId||''
 }
 
-function saveConfig(){
+async function saveConfig(){
   if(!menuData.config)menuData.config={}
   menuData.config.restaurantName=document.getElementById('cfgName').value
   menuData.config.whatsapp=document.getElementById('cfgWa').value
@@ -811,8 +772,11 @@ function saveConfig(){
   menuData.config.hours=document.getElementById('cfgHours').value
   menuData.config.instagram=document.getElementById('cfgIg').value
   menuData.config.googleAnalyticsId=document.getElementById('cfgGa').value
-  saveMenuData(menuData)
-  toast('✓ Configuración guardada')
+  try{
+    await apiPost({action:'save-menu',data:menuData})
+    saveMenuData(menuData)
+    toast('✓ Configuración guardada y publicada')
+  }catch(e){toast('❌ '+e.message)}
 }
 
 function downloadSitemap(){

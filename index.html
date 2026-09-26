@@ -362,6 +362,8 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
 @keyframes floatEm{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .55s ease,transform .55s ease}
 .reveal.vis{opacity:1;transform:none}
+/* Hide Netlify badge */
+[data-netlify-banner],[class*="netlify-badge"]{display:none!important}
 /* RESPONSIVE */
 @media(max-width:1024px){.ft-g{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){
@@ -640,9 +642,15 @@ let MENU = null
 
 async function loadMenu() {
   try {
-    const r = await fetch('/data/menu.json')
+    const r = await fetch('/.netlify/functions/api?action=get-menu')
     if (r.ok) { MENU = await r.json() }
-  } catch(e) { console.warn('menu fetch error:', e) }
+  } catch {}
+  if (!MENU) {
+    try {
+      const r = await fetch('/data/menu.json')
+      if (r.ok) { MENU = await r.json() }
+    } catch(e) { console.warn('menu fetch error:', e) }
+  }
   if (!MENU) {
     try {
       const stored = localStorage.getItem('bh_menu_data')
@@ -874,16 +882,25 @@ function sendWA() {
   let msg = 'Hola! Quiero hacer un pedido:\n\n'
   cart.forEach(i => { msg += `${i.qty}x ${i.name} (${i.variant}) - $${(i.price*i.qty).toFixed(2)}\n` })
   msg += '\nTOTAL: $' + cart.reduce((a,i)=>a+i.price*i.qty,0).toFixed(2)
-  // Track order
   const today = new Date().toISOString().split('T')[0]
-  const orders = JSON.parse(localStorage.getItem('bh_orders') || '[]')
-  orders.push({
+  const orderData = {
     date: today, ts: Date.now(),
     items: cart.map(i => i.name),
     prices: cart.map(i => i.price),
     total: cart.reduce((a,i)=>a+i.price*i.qty,0)
-  })
-  localStorage.setItem('bh_orders', JSON.stringify(orders))
+  }
+  // Track in localStorage (per device)
+  try {
+    const orders = JSON.parse(localStorage.getItem('bh_orders') || '[]')
+    orders.push(orderData)
+    localStorage.setItem('bh_orders', JSON.stringify(orders))
+  } catch {}
+  // Track server-side (all devices visible in admin)
+  fetch('/.netlify/functions/api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'save-order', order: orderData })
+  }).catch(() => {})
   window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(msg), '_blank')
   window.location.href = '/thanks.html'
 }
