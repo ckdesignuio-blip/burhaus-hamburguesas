@@ -76,7 +76,7 @@
       "category": "burgers",
       "available": true,
       "name": "Burhaus",
-      "desc": "Carne de res, pickles, tocino, queso cheddar, salsas de la casa.",
+      "desc": "Carne (Brisket 110gr), pickles, tocino, queso cheddar, salsas de la casa.",
       "image": "/images/burhaus.jpg",
       "priceS": 5.5,
       "priceD": 6.5,
@@ -88,7 +88,7 @@
       "category": "burgers",
       "available": true,
       "name": "Magic Haus",
-      "desc": "Carne de res, tocino, queso cheddar, cebolla, tomate, lechuga, salsas de la casa.",
+      "desc": "Carne (Brisket 110gr), tocino, queso cheddar, cebolla, tomate, lechuga, salsas de la casa.",
       "image": "/images/magic-haus.jpg",
       "priceS": 5.5,
       "priceD": 6.5,
@@ -112,11 +112,11 @@
       "category": "burgers",
       "available": true,
       "name": "Cheese Haus",
-      "desc": "Carne de res, queso cheddar, salsas de la casa.",
+      "desc": "Carne (Brisket 110gr), queso cheddar, salsas de la casa.",
       "image": "/images/cheese-haus.jpg",
       "priceS": 4.25,
-      "priceD": 6.5,
-      "priceG": 8,
+      "priceD": 6,
+      "priceG": 7,
       "note": "Incluye papas fritas"
     },
     {
@@ -128,7 +128,7 @@
       "image": "/images/tres-tres.jpg",
       "priceS": 7.99,
       "priceD": 9.49,
-      "priceG": 8,
+      "priceG": 9.5,
       "note": "Incluye papas fritas"
     },
     {
@@ -136,11 +136,11 @@
       "category": "burgers",
       "available": true,
       "name": "Jack Haus",
-      "desc": "Carne de res, queso cheddar, pulled pork + BBQ + Jack Daniel's, aros de cebolla, salsas de la casa.",
+      "desc": "Carne (Brisket 110gr), queso cheddar, pulled pork + BBQ + Jack Daniel's, aros de cebolla, salsas de la casa.",
       "image": "/images/jack-haus.jpg",
       "priceS": 7.99,
       "priceD": 9.49,
-      "priceG": 8,
+      "priceG": 9.5,
       "note": "Incluye papas fritas"
     },
     {
@@ -148,10 +148,10 @@
       "category": "nuevas",
       "available": true,
       "name": "Monster",
-      "desc": "Carne de res brisket, queso cheddar, tocino, pickles, tomate, lechuga, cebolla, salsa de la casa.",
+      "desc": "Carne (Brisket 110gr), queso cheddar, tocino, pickles, tomate, lechuga, cebolla, salsa de la casa.",
       "image": "/images/monster.jpg",
-      "priceS": 5.5,
-      "priceD": 6.5,
+      "priceS": 6,
+      "priceD": 7,
       "priceG": 8,
       "note": "Incluye papas fritas"
     },
@@ -160,10 +160,10 @@
       "category": "nuevas",
       "available": true,
       "name": "Jack Daniel's Piña",
-      "desc": "Carne de res, queso cheddar, tocino, piña, cebolla caramelizada, salsas de la casa, salsa Jack Daniel's.",
+      "desc": "Carne (Brisket 110gr), queso cheddar, tocino, piña, cebolla caramelizada, salsas de la casa, salsa Jack Daniel's.",
       "image": "/images/jd-pina.jpg",
-      "priceS": 5.5,
-      "priceD": 6.5,
+      "priceS": 6,
+      "priceD": 7,
       "priceG": 8,
       "note": "Incluye papas fritas"
     },
@@ -281,7 +281,7 @@
       "id": "ecq",
       "category": "extras",
       "available": true,
-      "name": "Carne + Queso",
+      "name": "Carne Brisket 100gr + Queso",
       "emoji": "🥩",
       "price": 1.6
     },
@@ -289,9 +289,9 @@
       "id": "ecr",
       "category": "extras",
       "available": true,
-      "name": "Carne",
+      "name": "Carne Picaña 200gr",
       "emoji": "🥩",
-      "price": 1
+      "price": 2
     },
     {
       "id": "ejl",
