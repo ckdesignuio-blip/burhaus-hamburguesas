@@ -10,14 +10,14 @@
     "city": "Quito, Ecuador",
     "hours": "Lunes a Domingo · 12:00 – 22:00",
     "phone": "099 430 5872",
-    "instagram": "burhaus.burger",
+    "instagram": "burhausburger",
     "uberEats": "",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7958!2d-78.4674!3d-0.1865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBurhaus!5e0!3m2!1ses!2sec!4v1",
+    "googleMapsEmbed": "https://maps.google.com/maps?q=-0.1675275,-78.4709517&z=17&output=embed",
     "responseTime": "5 minutos"
   },
   "seo": {
     "title": "Burhaus Hamburguesas | Menú Digital | Quito | Smash burgers",
-    "description": "Burhaus Hamburguesas Quito. Smash burgers y clásicos artesanales estilo NYC. Pide por WhatsApp o Uber Eats. Av. Granados y Jose Queri.",
+    "description": "Burhaus Hamburguesas Quito. Smash burgers y clásicos artesanales estilo NYC. Pide por WhatsApp. Av. Granados y Jose Queri.",
     "keywords": "hamburguesas quito, smash burger quito, mejor hamburguesa quito, burhaus hamburguesas, fast food quito, delivery hamburguesas quito"
   },
   "categories": [
@@ -174,7 +174,8 @@
       "name": "Pulled Pork",
       "desc": "Cerdo desmechado, queso cheddar, aros de cebolla, salsa BBQ + Jack Daniel's.",
       "image": "/images/pulled-pork.jpg",
-      "price": 6.55
+      "price": 6.55,
+      "note": "Incluye papas fritas"
     },
     {
       "id": "bi",
@@ -183,7 +184,8 @@
       "name": "Birria",
       "desc": "Res desmechado, salsa de birria, queso cheddar, aros de cebolla, culantro, nachos.",
       "image": "/images/birria.jpg",
-      "price": 6.55
+      "price": 6.55,
+      "note": "Incluye papas fritas"
     },
     {
       "id": "pf",
@@ -377,7 +379,7 @@
   "faq": [
     {
       "q": "¿Hacen delivery?",
-      "a": "Sí, puedes pedir por WhatsApp al 099 430 5872 o a través de Uber Eats. Cubrimos Quito norte y sector Cumbayá."
+      "a": "Sí, puedes pedir directamente por WhatsApp al 099 430 5872. Cubrimos Quito norte y sector Cumbayá."
     },
     {
       "q": "¿Cuánto tardan los pedidos?",
@@ -385,7 +387,7 @@
     },
     {
       "q": "¿Qué es la Gordita 200g?",
-      "a": "Es nuestra opción más grande con una carne de 200g. Perfecta si tienes mucha hambre o quieres una experiencia completa."
+      "a": "Es nuestra opción más grande con una carne de picaña de 200gr. Perfecta si tienes mucha hambre o quieres una experiencia completa."
     },
     {
       "q": "¿Tienen opciones sin gluten o vegetarianas?",

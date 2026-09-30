@@ -6,7 +6,7 @@
 
 <!-- ===== SEO PRIMARY ===== -->
 <title>Burhaus Hamburguesas | Menú Digital | Quito</title>
-<meta name="description" content="Burhaus Hamburguesas Quito. Smash burgers y clásicos artesanales estilo NYC. Pide por WhatsApp o Uber Eats. Av. Granados y Jose Queri. Abierto Lun-Dom 12:00-22:00.">
+<meta name="description" content="Burhaus Hamburguesas Quito. Smash burgers y clásicos artesanales estilo NYC. Pide por WhatsApp. Av. Granados y Jose Queri. Abierto Lun-Dom 12:00-22:00.">
 <meta name="keywords" content="hamburguesas quito, smash burger quito, mejor hamburguesa quito, burhaus hamburguesas, fast food quito, delivery hamburguesas quito, pulled pork quito, birria quito">
 <meta name="author" content="Burhaus Hamburguesas">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -16,7 +16,7 @@
 <!-- ===== OPEN GRAPH / FACEBOOK ===== -->
 <meta property="og:type" content="restaurant.restaurant">
 <meta property="og:title" content="Burhaus Hamburguesas | Quito">
-<meta property="og:description" content="Smash burgers artesanales estilo NYC. Simple, Doble o Gordita 200g. Pide por WhatsApp o Uber Eats. Quito, Ecuador.">
+<meta property="og:description" content="Smash burgers artesanales estilo NYC. Simple, Doble o Gordita de picaña 200g. Pide por WhatsApp. Quito, Ecuador.">
 <meta property="og:image" content="https://burhaus.netlify.app/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -61,7 +61,7 @@
   }],
   "hasMenu": "https://burhaus.netlify.app/",
   "menu": "https://burhaus.netlify.app/",
-  "sameAs": ["https://www.instagram.com/burhaus.burger"],
+  "sameAs": ["https://www.instagram.com/burhausburger"],
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
@@ -77,7 +77,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"¿Hacen delivery?","acceptedAnswer":{"@type":"Answer","text":"Sí, puedes pedir por WhatsApp al 099 430 5872 o a través de Uber Eats. Cubrimos Quito norte y sector Cumbayá."}},
+    {"@type":"Question","name":"¿Hacen delivery?","acceptedAnswer":{"@type":"Answer","text":"Sí, puedes pedir directamente por WhatsApp al 099 430 5872. Cubrimos Quito norte y sector Cumbayá."}},
     {"@type":"Question","name":"¿Cuánto tardan los pedidos?","acceptedAnswer":{"@type":"Answer","text":"Respondemos en menos de 5 minutos. El tiempo de entrega es generalmente de 20 a 40 minutos."}},
     {"@type":"Question","name":"¿Qué es la Gordita 200g?","acceptedAnswer":{"@type":"Answer","text":"Es nuestra opción más grande con una carne de 200g. Perfecta para una experiencia completa."}},
     {"@type":"Question","name":"¿Tienen opciones vegetarianas?","acceptedAnswer":{"@type":"Answer","text":"Por el momento no contamos con opciones vegetarianas, pero estamos trabajando en ello."}},
@@ -241,7 +241,10 @@ nav.sc{top:0;background:rgba(9,9,12,.92);backdrop-filter:blur(24px);border-botto
 .burgers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 32px}
 .nuevas-g{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:0 32px}
 .san-g{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:0 32px}
-.san-g .pc-iw{height:260px}.san-g .pc-img{object-position:center center}
+.nuevas-g .pc-iw{height:300px;background:#070709}
+.nuevas-g .pc-img{object-fit:contain;padding:6px}
+.san-g .pc-iw{height:280px;background:#070709}
+.san-g .pc-img{object-fit:contain;padding:6px}
 .papas-g{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 32px}
 .papas-g .pc-iw{height:180px}
 @media(max-width:1200px){.burgers-grid{grid-template-columns:repeat(3,1fr)}}
@@ -281,7 +284,6 @@ nav.sc{top:0;background:rgba(9,9,12,.92);backdrop-filter:blur(24px);border-botto
 .faq-a p{font-size:.85rem;color:var(--t2);line-height:1.75}
 /* VIBE */
 .vibe{padding:90px 32px;background:linear-gradient(135deg,#0A0800,#0D0508);text-align:center;position:relative;overflow:hidden}
-.vibe::before{content:'BURHAUS';position:absolute;font-family:'Anton',sans-serif;font-size:22vw;color:rgba(245,158,11,.02);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
 .vibe-t{font-family:'Anton',sans-serif;font-size:clamp(1.7rem,4vw,3.5rem);color:var(--Y);letter-spacing:.06em;margin-bottom:16px;position:relative;text-shadow:var(--neon-y)}
 .vibe-q{font-size:clamp(.9rem,1.8vw,1.1rem);color:rgba(255,255,255,.35);line-height:1.9;max-width:620px;margin:0 auto 32px;font-style:italic;position:relative}
 .vibe-badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
@@ -344,6 +346,20 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
 .ctot-v{font-family:'Anton',sans-serif;font-size:1.8rem;color:var(--Y);text-shadow:var(--neon-y)}
 .csend{width:100%;padding:14px;background:var(--green);color:#fff;border:none;border-radius:50px;font-family:'Anton',sans-serif;font-size:1.05rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px}
 .csend:hover{background:#16a34a;transform:scale(1.02)}
+/* DRINK SELECTOR */
+.drink-ov{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px)}
+.drink-ov.on{display:flex}
+.drink-box{background:rgba(12,12,18,.97);border:1px solid rgba(245,158,11,.22);border-radius:22px;max-width:380px;width:100%;padding:30px 24px;position:relative;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+.drink-x{position:absolute;top:13px;right:14px;background:rgba(255,255,255,.06);border:none;color:var(--t);width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.drink-x:hover{background:var(--Y);color:var(--bg)}
+.drink-em{font-size:3rem;text-align:center;display:block;margin-bottom:8px}
+.drink-t{font-family:'Anton',sans-serif;font-size:1.7rem;color:var(--Y);text-align:center;margin-bottom:6px;text-shadow:var(--neon-y)}
+.drink-s{font-size:.8rem;color:var(--t2);text-align:center;margin-bottom:20px}
+.drink-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.dopt{padding:10px 8px;border-radius:12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);color:var(--t);font-size:.82rem;font-weight:600;cursor:pointer;text-align:center;transition:all .25s}
+.dopt:hover,.dopt.sel{background:rgba(245,158,11,.2);border-color:var(--Y);color:var(--Y)}
+.drink-add{width:100%;padding:12px;background:var(--Y);color:var(--bg);border:none;border-radius:50px;font-family:'Anton',sans-serif;font-size:.95rem;cursor:pointer;transition:all .25s;margin-top:4px}
+.drink-add:hover{background:#FFB800;transform:scale(1.02)}
 /* POPUP */
 .pop-ov{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px)}
 .pop-ov.on{display:flex}
@@ -399,14 +415,14 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
 <div class="mq"><div class="mq-t">
   <span class="mq-i">🍔 BURHAUS HAMBURGUESAS</span><span class="mq-sep">●</span>
   <span class="mq-i">📍 AV. GRANADOS Y JOSE QUERI</span><span class="mq-sep">●</span>
-  <span class="mq-i">🛵 PIDE EN UBER EATS</span><span class="mq-sep">●</span>
   <span class="mq-i">💬 PEDIDOS POR WHATSAPP</span><span class="mq-sep">●</span>
   <span class="mq-i">🕐 LUNES A DOMINGO 12:00–22:00</span><span class="mq-sep">●</span>
+  <span class="mq-i">🥩 SMASH BURGERS ARTESANALES</span><span class="mq-sep">●</span>
   <span class="mq-i">🍔 BURHAUS HAMBURGUESAS</span><span class="mq-sep">●</span>
   <span class="mq-i">📍 AV. GRANADOS Y JOSE QUERI</span><span class="mq-sep">●</span>
-  <span class="mq-i">🛵 PIDE EN UBER EATS</span><span class="mq-sep">●</span>
   <span class="mq-i">💬 PEDIDOS POR WHATSAPP</span><span class="mq-sep">●</span>
   <span class="mq-i">🕐 LUNES A DOMINGO 12:00–22:00</span><span class="mq-sep">●</span>
+  <span class="mq-i">🥩 SMASH BURGERS ARTESANALES</span><span class="mq-sep">●</span>
 </div></div>
 
 <!-- NAV -->
@@ -559,15 +575,14 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
         <div class="ubi-row"><span class="ubi-ico">📍</span><div class="ubi-info"><strong>Dirección</strong><span id="ubiAddr">Av. Granados y Jose Queri, esquina, Quito, Ecuador</span></div></div>
         <div class="ubi-row"><span class="ubi-ico">📱</span><div class="ubi-info"><strong>WhatsApp</strong><span id="ubiPhone">099 430 5872</span></div></div>
         <div class="ubi-row"><span class="ubi-ico">🕐</span><div class="ubi-info"><strong>Horario</strong><span id="ubiHours">Lunes a Domingo · 12:00 – 22:00</span></div></div>
-        <div class="ubi-row"><span class="ubi-ico">🛵</span><div class="ubi-info"><strong>Delivery</strong>Uber Eats y WhatsApp</div></div>
+        <div class="ubi-row"><span class="ubi-ico">🛵</span><div class="ubi-info"><strong>Delivery</strong>Pedidos por WhatsApp</div></div>
         <div class="soc-g">
-          <a class="sbtn sbtn-ig" id="ubiIg" href="https://www.instagram.com/burhaus.burger" target="_blank" rel="noopener">📷 Instagram</a>
-          <a class="sbtn sbtn-ub" href="#" target="_blank">🛵 Uber Eats</a>
+          <a class="sbtn sbtn-ig" id="ubiIg" href="https://www.instagram.com/burhausburger" target="_blank" rel="noopener">📷 Instagram</a>
           <a class="sbtn sbtn-wa" id="ubiWa" href="https://wa.me/593994305872" target="_blank" rel="noopener">💬 WhatsApp</a>
         </div>
       </div>
       <div class="map-wrap">
-        <iframe id="mapFrame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7958!2d-78.4674!3d-0.1865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBurhaus!5e0!3m2!1ses!2sec!4v1" width="100%" height="380" style="border:0" allowfullscreen loading="lazy" title="Mapa Burhaus Hamburguesas Quito"></iframe>
+        <iframe id="mapFrame" src="https://maps.google.com/maps?q=-0.1675275,-78.4709517&z=17&output=embed" width="100%" height="380" style="border:0" allowfullscreen loading="lazy" title="Mapa Burhaus Hamburguesas Quito"></iframe>
       </div>
     </div>
   </div>
@@ -593,7 +608,7 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
       <p>📱 099 430 5872</p>
       <p>🕐 Lun–Dom 12:00–22:00</p>
       <a href="https://wa.me/593994305872" target="_blank" rel="noopener">💬 WhatsApp</a>
-      <a href="https://www.instagram.com/burhaus.burger" target="_blank" rel="noopener">📷 Instagram</a>
+      <a href="https://www.instagram.com/burhausburger" target="_blank" rel="noopener">📷 Instagram</a>
     </div>
   </div>
   <div class="ft-bar">
@@ -619,6 +634,18 @@ footer{background:#040407;padding:52px 32px 100px;border-top:1px solid var(--bor
   <div class="cfoot">
     <div class="ctot"><span class="ctot-l">TOTAL</span><span class="ctot-v" id="ctotV">$0.00</span></div>
     <button class="csend" onclick="sendWA()">💬 Enviar Pedido por WhatsApp</button>
+  </div>
+</div>
+
+<!-- DRINK SELECTOR -->
+<div class="drink-ov" id="drinkOv" role="dialog" aria-label="Seleccionar opción">
+  <div class="drink-box">
+    <button class="drink-x" onclick="closeDrink()" aria-label="Cerrar">✕</button>
+    <span class="drink-em" id="drinkEm">🥤</span>
+    <div class="drink-t" id="drinkT">Elige tu sabor</div>
+    <p class="drink-s" id="drinkS">Selecciona una opción para continuar</p>
+    <div class="drink-opts" id="drinkOpts"></div>
+    <button class="drink-add" onclick="confirmDrink()">+ Agregar al Pedido</button>
   </div>
 </div>
 
@@ -715,16 +742,18 @@ function pcardSeg(item) {
         <div class="seg-price" style="color:var(--t3)">No disponible</div>
       </div></div>`
   }
+  const noteHtml = item.note ? `<div style="font-size:.68rem;color:var(--green);margin-bottom:10px;font-weight:600">✓ ${escH(item.note)}</div>` : ''
   return `<div class="pcard reveal">
     <div class="pc-iw"><img class="pc-img" loading="lazy" alt="${escH(item.name)} - Burhaus Hamburguesas Quito" src="${item.image}"></div>
     <div class="pc-body">
       <div class="pc-name">${item.name}</div>
       <div class="pc-desc">${escH(item.desc||'')}</div>
+      ${noteHtml}
       <div class="seg-wrap" data-s="${item.priceS}" data-d="${item.priceD}" data-g="${item.priceG}">
         <div class="seg-slider"></div>
         <button class="seg-btn act" onclick="toggleSeg(this)">Simple</button>
         <button class="seg-btn" onclick="toggleSeg(this)">Doble</button>
-        <button class="seg-btn" onclick="toggleSeg(this)">Gordita</button>
+        <button class="seg-btn" onclick="toggleSeg(this)">Gordita 200g</button>
       </div>
       <div class="seg-price">$${item.priceS.toFixed(2)}</div>
       <button class="add-btn" data-id="${item.id}" data-name="${item.name}" data-p="${item.priceS}" onclick="addFromCard(this)">+ Agregar al Pedido</button>
@@ -737,11 +766,13 @@ function pcardSimple(item) {
       <div class="pc-iw"><img class="pc-img" loading="lazy" alt="${escH(item.name)}" src="${item.image}"><div class="pc-oos"><span>AGOTADO</span></div></div>
       <div class="pc-body"><div class="pc-name">${item.name}</div><div class="pc-desc">${escH(item.desc||'')}</div><div class="seg-price" style="color:var(--t3)">No disponible</div></div></div>`
   }
+  const noteHtml2 = item.note ? `<div style="font-size:.68rem;color:var(--green);margin-bottom:10px;font-weight:600">✓ ${escH(item.note)}</div>` : ''
   return `<div class="pcard reveal">
     <div class="pc-iw"><img class="pc-img" loading="lazy" alt="${escH(item.name)} - Burhaus Quito" src="${item.image}"></div>
     <div class="pc-body">
       <div class="pc-name">${item.name}</div>
       <div class="pc-desc">${escH(item.desc||'')}</div>
+      ${noteHtml2}
       <div class="seg-price">$${item.price.toFixed(2)}</div>
       <button class="add-btn" onclick="addCart('${item.id}','${item.name}','Porción',${item.price},this)">+ Agregar</button>
     </div></div>`
@@ -757,15 +788,54 @@ function renderSimple(cat, gridId) {
   document.getElementById(gridId).innerHTML = items.map(pcardSimple).join('')
 }
 
+const DRINK_OPTS = {
+  'bg': { em:'🥤', title:'¿Qué gaseosa quieres?', sub:'Elige tu sabor', opts:['Coca-Cola','Sprite','Fanta Naranja','Inka Kola'] },
+  'bc': { em:'🍺', title:'¿Qué cerveza quieres?', sub:'Elige tu marca', opts:['Pilsener','Club Verde','Club Roja','Brahma'] }
+}
+let drinkPending = null
+
 function renderBebidas() {
   const items = getItems('bebidas')
-  document.getElementById('bebidasGrid').innerHTML = items.map(i =>
-    `<div class="bcard" onclick="addCart('${i.id}','${i.name}','Bebida',${i.price},this)">
+  document.getElementById('bebidasGrid').innerHTML = items.map(i => {
+    const hasSel = !!DRINK_OPTS[i.id]
+    const onclick = hasSel ? `openDrink('${i.id}','${i.name}',${i.price})` : `addCart('${i.id}','${i.name}','Bebida',${i.price},this)`
+    return `<div class="bcard" onclick="${onclick}">
       <span class="bcard-em">${i.emoji||'🥤'}</span>
       <div class="bcard-name">${i.name}</div>
       <div class="bcard-price">$${i.price.toFixed(2)}</div>
       <button class="bcard-add">+ Agregar</button>
-    </div>`).join('')
+    </div>`
+  }).join('')
+}
+
+function openDrink(id, name, price) {
+  const cfg = DRINK_OPTS[id]
+  if (!cfg) { addCart(id, name, 'Bebida', price, null); return }
+  drinkPending = { id, name, price }
+  document.getElementById('drinkEm').textContent = cfg.em
+  document.getElementById('drinkT').textContent = cfg.title
+  document.getElementById('drinkS').textContent = cfg.sub
+  document.getElementById('drinkOpts').innerHTML = cfg.opts.map(o =>
+    `<button class="dopt" onclick="selDrinkOpt(this)">${o}</button>`).join('')
+  document.getElementById('drinkOv').classList.add('on')
+}
+
+function selDrinkOpt(btn) {
+  document.querySelectorAll('.dopt').forEach(b => b.classList.remove('sel'))
+  btn.classList.add('sel')
+}
+
+function confirmDrink() {
+  const sel = document.querySelector('.dopt.sel')
+  if (!sel) { alert('Elige una opción primero'); return }
+  const { id, name, price } = drinkPending
+  addCart(id, name + ' ' + sel.textContent, 'Bebida', price, null)
+  closeDrink()
+}
+
+function closeDrink() {
+  document.getElementById('drinkOv').classList.remove('on')
+  drinkPending = null
 }
 
 function renderExtras() {
@@ -931,8 +1001,10 @@ function animBtn(btn) {
 // ============================================================
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('sc', scrollY > 60)
-  const bg = document.getElementById('heroBg')
-  if (bg) bg.style.transform = 'translateZ(0) translateY(' + scrollY * .2 + 'px)'
+  if (window.innerWidth > 768) {
+    const bg = document.getElementById('heroBg')
+    if (bg) bg.style.transform = 'translateZ(0) translateY(' + scrollY * .2 + 'px)'
+  }
   const pg = document.getElementById('pgbar')
   const h = document.documentElement.scrollHeight - window.innerHeight
   if (h > 0) pg.style.width = (scrollY / h * 100) + '%'
@@ -971,7 +1043,10 @@ function trackView() {
 // ============================================================
 // LOADER
 // ============================================================
-window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('gone'), 2200))
+window.addEventListener('load', () => {
+  const delay = window.innerWidth <= 768 ? 1400 : 2200
+  setTimeout(() => document.getElementById('loader').classList.add('gone'), delay)
+})
 
 // ============================================================
 // UTILS
@@ -986,7 +1061,7 @@ trackView()
 </script>
 
 <!-- Netlify Identity: procesa tokens de confirmación/invitación y redirige al admin -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 <script>
 if(window.netlifyIdentity){
   window.netlifyIdentity.on('init',function(user){
